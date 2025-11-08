@@ -8,3 +8,7 @@ An apology without change isn’t an apology. Accountability without correction 
 # Panashe Gonese's favorite quote
 And so it began, not without a resounding bang but with a muffled cry, a dream snuffed out by a careless word. This is how villains are made
 - Ruminations of a Purple Creature
+
+# Aghogho Monorien's favorite quote
+I test in prod.
+- Andre Cronje
