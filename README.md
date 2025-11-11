@@ -4,3 +4,11 @@ There are a few online platforms that are providing a way of sharing personal sc
 # Simon Mule's favorite quote
 An apology without change isn’t an apology. Accountability without correction isn’t accountability.
 - Dangerous love
+
+# Panashe Gonese's favorite quote
+And so it began, not without a resounding bang but with a muffled cry, a dream snuffed out by a careless word. This is how villains are made
+- Ruminations of a Purple Creature
+
+# Aghogho Monorien's favorite quote
+I test in prod.
+- Andre Cronje
