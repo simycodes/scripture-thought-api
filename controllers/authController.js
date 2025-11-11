@@ -1,0 +1,15 @@
+import { StatusCodes } from "http-status-codes";
+import User from "../models/UserModel.js";
+
+// REGISTER A USER
+export const register = async (req, res) => {
+  // first registered user is an admin
+  const isFirstAccount = (await User.countDocuments()) === 0;
+  req.body.role = isFirstAccount ? "admin" : "user";
+
+  const user = await User.create(req.body);
+  res.status(StatusCodes.CREATED).json({ msg: "user created", user });
+  res.send("register");
+};
+
+

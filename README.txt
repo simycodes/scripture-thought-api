@@ -1,0 +1,11 @@
+# TO RUN THE API SERVER ON YOUR LOCAL MACHINE, HAVE THE FOLLOWING SETUP ON YOUR 
+# LOCAL SERVER PROJECT IN THE .env file
+
+# 1. .env file, WITH BELOW VALUES
+# AS PROJECT PROGRESSES WITH ALL DB MODELS SET, CONSIDER SETTING UP YOUR OWN MONGO_URL
+NODE_ENV=development
+PORT=5000
+MONGO_URL=mongodb+srv://simy:reactnodecoding@nodeexpressprojects.hnksqmf.mongodb.net/scripture-thought-api?appName=NodeExpressProjects
+
+# npm run dev, RUNS THIS SERVER API
+
