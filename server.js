@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 // routers
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
+import scriptureThoughtRouter from "./routes/scriptureThoughtRouter.js"; 
 // middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
 
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/thoughts", scriptureThoughtRouter);
 
 // THIS ROUTE IS AUTOMATICALLY CALLED WHEN THERE IS AN ERROR IN DEFINED ROUTES
 // FOR ALL ERRORS IN ROUTES ON API - SHOULD ALWAYS BE PLACED AS FINAL ROUTE
