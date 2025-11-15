@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/comments", commentRoutes);
 
 // THIS ROUTE IS AUTOMATICALLY CALLED WHEN THERE IS AN ERROR IN DEFINED ROUTES
 // FOR ALL ERRORS IN ROUTES ON API - SHOULD ALWAYS BE PLACED AS FINAL ROUTE
