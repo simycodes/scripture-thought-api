@@ -11,8 +11,10 @@ import cookieParser from "cookie-parser";
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import commentRoutes from "./routes/commentRoutes.js";
+
 // middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 
 // log/console request types made in node
 if (process.env.NODE_ENV === "development") {
@@ -31,7 +33,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/comments", commentRoutes);
+app.use("/api/v1/comments", authenticateUser, commentRoutes);
 
 // THIS ROUTE IS AUTOMATICALLY CALLED WHEN THERE IS AN ERROR IN DEFINED ROUTES
 // FOR ALL ERRORS IN ROUTES ON API - SHOULD ALWAYS BE PLACED AS FINAL ROUTE
