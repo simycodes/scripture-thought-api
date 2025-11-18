@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 // routers
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
+import scriptureThoughtRouter from "./routes/scriptureThoughtRouter.js"; 
 import commentRoutes from "./routes/commentRoutes.js";
 
 // middleware
