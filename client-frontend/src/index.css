@@ -1,0 +1,38 @@
+/* GLOBAL CSS */
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+} /*16px*/
+
+body {
+  background:#cbd5e1;
+  color: var(--text-color);
+  font-family: system-ui, Roboto
+}
+
+
+.btn {
+  cursor: pointer;
+  color: #b0b6bd;
+  background: #0a59b9;
+  border: transparent;
+  border-radius: 10px;
+  padding: 0.4rem 0.8rem;
+  margin: 1rem;;
+  box-shadow:#b0b6bd;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #021327;
+}
+
