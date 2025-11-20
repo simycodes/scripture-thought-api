@@ -7,7 +7,7 @@ import { authorizePermissions } from "../middleware/authMiddleware.js";
 router.get("/current-user", getCurrentUser);
 router.patch("/update-user", updateUser);
 router.get("/admin/all-users", authorizePermissions("admin"), getAllUsers);
-router.patch("/admin/delete-user", authorizePermissions("admin"), deleteUser);
+router.delete("/admin/delete-user/:id", authorizePermissions("admin"), deleteUser);
 
 
 export default router;

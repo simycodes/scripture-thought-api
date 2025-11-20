@@ -11,7 +11,7 @@ router.post('/create-thought', createThought);
 router.get("/get-all-thoughts-user", getAllThoughtsByUser);
 router.get("/get-thought/:id", getOneThoughtById);
 router.get("/get-all-thoughts", getAllThoughts);
-router.get("/update-thought/:id", updateThoughtById);
+router.patch("/update-thought/:id", updateThoughtById);
 router.delete("/delete-thought/:id", deleteThoughtById);
 
 export default router;
