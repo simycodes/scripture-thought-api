@@ -108,7 +108,8 @@ export const deleteThoughtById = async (req, res) => {
 
     try {
         const { id } = req.params;
-        const { user } = req.body;
+        // const { user } = req.body;
+        const user = req.query.user;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid thought ID" });

@@ -3,6 +3,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 const app = express();
+import cors from "cors";
 import mongoose from "mongoose";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
@@ -14,6 +15,13 @@ import scriptureThoughtRouter from "./routes/scriptureThoughtRouter.js";
 import commentRoutes from "./routes/commentRoutes.js";
 // middleware
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+
+// enable CORS
+app.use(cors({
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 // log/console request types made in node
 if (process.env.NODE_ENV === "development") {
