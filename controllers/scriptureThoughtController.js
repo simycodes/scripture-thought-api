@@ -125,3 +125,78 @@ export const deleteThoughtById = async (req, res) => {
         res.status(500).json({ message: "Error deleting thought", error: err.message });
     }
 };
+
+
+export const likeThought = async (req, res) => {
+    
+    const { id } = req.params;
+    const user = req.body.user;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(400);
+        throw new Error("Invalid thought ID");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(user)) {
+        res.status(400);
+        throw new Error("Invalid user ID");
+    }
+
+    const thought = await ScriptureThoughtModel.findById(id);
+
+    if (!thought) {
+        res.status(404);
+        throw new Error("Thought not found");
+    }
+
+    if (thought.likes.includes(user)) {
+        res.status(400);
+        throw new Error("You already liked this thought");
+    }
+
+    thought.likes.push(user);
+    await thought.save();
+
+    res.status(200).json({
+        message: "Thought liked successfully",
+        likeCount: thought.likes.length,
+        thought,
+    });
+};
+
+
+export const unlikeThought = async (req, res) => {
+    const { id } = req.params;
+    const user = req.body.user;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(400);
+        throw new Error("Invalid thought ID");
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(user)) {
+        res.status(400);
+        throw new Error("Invalid user ID");
+    }
+
+    const thought = await ScriptureThoughtModel.findById(id);
+
+    if (!thought) {
+        res.status(404);
+        throw new Error("Thought not found");
+    }
+
+    if (!thought.likes.includes(user)) {
+        res.status(400);
+        throw new Error("You have not liked this thought");
+    }
+
+    thought.likes = thought.likes.filter(id => id.toString() !== user.toString());
+    await thought.save();
+
+    res.status(200).json({
+        message: "Thought unliked successfully",
+        likeCount: thought.likes.length,
+        thought,
+    });
+};
