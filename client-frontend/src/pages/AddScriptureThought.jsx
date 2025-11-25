@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { createThought } from "../api"; 
 import { useNavigate } from "react-router-dom";
 
@@ -8,12 +9,14 @@ export default function AddScriptureThought() {
   const [thought, setThought] = useState("");
   const navigate = useNavigate();
 
-  const user = "691d8bc2684a2bcc6c7bb9c3";   // hardcoded user ID for testing
+  const { user } = useOutletContext();
+  const userId = user._id;
+  // const user = "691d8bc2684a2bcc6c7bb9c3";   // hardcoded user ID for testing
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createThought({ user, description, scriptureVerse, thought });
+      await createThought({ userId, description, scriptureVerse, thought });
       setDescription("");
       setScriptureVerse("");
       setThought("");

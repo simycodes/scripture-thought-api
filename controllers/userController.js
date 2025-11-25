@@ -8,8 +8,8 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
+  console.log("reached current user controller!")
   const user = await User.findOne({ _id: req.user.userId });
-  console.log(user);
   const userWithoutPassword = user.toJSON();
   res.status(StatusCodes.OK).json({ user: userWithoutPassword });
 };

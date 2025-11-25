@@ -9,3 +9,4 @@ export { default as EditScriptureThought } from "./EditScriptureThought";
 export { default as AllScriptureThoughts } from "./AllScriptureThoughts";
 export { default as MyScriptureThoughts } from "./MyScriptureThoughts";
 export { default as Profile } from "./Profile";
+export { default as EditProfile } from "./EditProfile";

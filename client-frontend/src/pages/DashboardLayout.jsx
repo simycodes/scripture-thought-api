@@ -1,4 +1,4 @@
-import { Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate } from "react-router-dom";
 import { Navbar, Sidebar } from "../components";
 import { createContext, useContext, useState, useEffect } from "react";
 import customFetch from "../utils/customFetch";
@@ -14,6 +14,8 @@ const DashBoardContext = createContext();
 export const loader = async() => {
   try {
     const { data } = await customFetch.get("/users/current-user");
+    console.log(data);
+    console.log("From Dashboard Layout");
     return data;
   } catch (error) {
     return redirect("/");

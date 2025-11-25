@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://127.0.0.1:5000/api/v1/thoughts",
+  baseURL: "/api/v1/scripture-thoughts",
 });
 
 export const getThoughts = () => API.get("/get-all-thoughts");

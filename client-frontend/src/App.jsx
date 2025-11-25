@@ -11,11 +11,13 @@ import {
   MyScriptureThoughts,
   AllScriptureThoughts,
   Profile,
+  EditProfile,
 } from "./pages";
 
 // Page Actions and Loaders
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
+import { action as editProfileAction } from "./pages/EditProfile";
 
 import { loader as DashboardLoader } from "./pages/DashboardLayout";
 
@@ -65,7 +67,12 @@ let router = createBrowserRouter([
           },
           {
             path: "profile",
-            element: <Profile />,
+            element: <Profile />
+          },
+          {
+            path: "edit-profile",
+            element: <EditProfile />,
+            action: editProfileAction,
           },
           {
             path: "delete-scripture-thought/:id",
