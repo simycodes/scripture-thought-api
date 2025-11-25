@@ -10,7 +10,7 @@ export const createThought = async (req, res) => {
         }
 
         const newThought = await ScriptureThoughtModel.create({
-            user: req.body.user,
+            user: req.user.userId,
             description,
             scriptureVerse,
             thought,
@@ -28,7 +28,7 @@ export const createThought = async (req, res) => {
 export const getAllThoughtsByUser = async (req, res) => {
     try {
 
-        const user = req.body.user;
+        const user = req.user.userId;
 
         if (!user) 
             return res.status(400).json({ message: "User not found." });
@@ -46,7 +46,7 @@ export const getAllThoughtsByUser = async (req, res) => {
 export const getOneThoughtById = async (req, res) => {
     try {
         const { id } = req.params;
-        const user = req.body.user;
+        const user = req.user.userId;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid thought ID." });
@@ -82,16 +82,17 @@ export const getAllThoughts = async (req, res) => {
 export const updateThoughtById = async (req, res) => {
     try {
         const { id } = req.params;
-        const { user, description, scriptureVerse, thought } = req.body;
+        const { description, scriptureVerse, thought } = req.body;
+        const user = req.user.userId;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid thought ID" });
         }
 
         const updatedThought = await ScriptureThoughtModel.findOneAndUpdate(
-            { _id: id, user },
-            { description, scriptureVerse, thought },
-            { new: true, runValidators: true }
+          { _id: id, user },
+          { description, scriptureVerse, thought },
+          { new: true, runValidators: true }
         );
 
         if (!updatedThought) {

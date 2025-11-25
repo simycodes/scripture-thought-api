@@ -9,3 +9,7 @@ MONGO_URL=mongodb+srv://simy:reactnodecoding@nodeexpressprojects.hnksqmf.mongodb
 
 # npm run dev, RUNS THIS SERVER API
 
+# UPON COMPLETION OF AUTHENTICATION WITH JWT, ADD/SET THE VALUE BELOW
+JWT_SECRET=authentification101
+JWT_EXPIRES_IN=1d
+
