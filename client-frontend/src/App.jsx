@@ -13,6 +13,12 @@ import {
   Profile,
 } from "./pages";
 
+// Page Actions and Loaders
+import { action as registerAction } from "./pages/Register";
+import { action as loginAction } from "./pages/Login";
+
+import { loader as DashboardLoader } from "./pages/DashboardLayout";
+
 
 // WEB APP ROUTING
 let router = createBrowserRouter([
@@ -24,18 +30,22 @@ let router = createBrowserRouter([
       {
         index: true,
         element: <Landing />, // will be displayed as home page with parent
+        action: loginAction,
       },
       {
         path: "/register",
         element: <Register />,
+        action: registerAction,
       },
       {
         path: "/login",
         element: <Login />,
+        action: loginAction,
       },
       {
         path: "/dashboard",
         element: <DashboardLayout />,
+        loader: DashboardLoader,
         children: [
           {
             index: true,

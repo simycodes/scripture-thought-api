@@ -1,19 +1,57 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, redirect, useLoaderData, useNavigate, useNavigation } from "react-router-dom";
 import { Navbar, Sidebar } from "../components";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import customFetch from "../utils/customFetch";
+import { toast } from "react-toastify";
 import "./DashboardLayout.css";
 
 
 // This is a DashboardLayout global context, will help pass global variables to <Sidebar /> components
 const DashBoardContext = createContext();
 
+// This function is initialized to the loader property in the app router and is run before
+// this page/component is loaded/open. Fetches data before it's even loaded
+export const loader = async() => {
+  try {
+    const { data } = await customFetch.get("/users/current-user");
+    return data;
+  } catch (error) {
+    return redirect("/");
+  }
+};
+
 const DashboardLayout = () => {
   const navigate = useNavigate();
-  const user = { name: "Simon", lastName: "Mule" }
+  const { user } = useLoaderData(); // get/destructure the user data from the above loader function
+  const [isAuthError, setIsAuthError] = useState(false);
+  // const user = { name: "Simon", lastName: "Mule" };
 
+  // FUNCTION TO LOGOUT USER
   const logoutUser = async () => {
     navigate("/");
+    await customFetch.get("/auth/logout");
+    toast.success("Logout Successful");
   };
+
+  // Using interceptors to logout users in case of an authentication error while
+  // inside app - case of test user when cookie values are deleted
+  customFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error?.response?.status === 401) {
+        setIsAuthError(true);
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  useEffect(() => {
+    if (!isAuthError) return;
+    logoutUser();
+  }, [isAuthError]);
+
 
   return (
     <DashBoardContext.Provider value={{ user, logoutUser }}>
@@ -32,7 +70,6 @@ const DashboardLayout = () => {
             (making it global data). */}
           </div>
         </div>
-
       </main>
     </DashBoardContext.Provider>
   );
