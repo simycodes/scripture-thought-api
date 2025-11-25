@@ -1,9 +1,10 @@
 import { StatusCodes } from "http-status-codes";
 import Comment from "../models/CommentModel.js";
+import mongoose from "mongoose";
 
 // CREATE COMMENT
 export const createComment = async (req, res) => {
-  const userId = req.user.userId; // from auth middleware
+  const userId = req.user.userId;
   const { thoughtId, comment } = req.body;
 
   const newComment = await Comment.create({

@@ -6,11 +6,35 @@ import {
   deleteComment,
 } from "../controllers/commentController.js";
 
+import {
+  validateCommentInput,
+  validateCommentIdParam,
+  validateCommentUpdateInput,
+  validateScriptureThoughtIdInCommentCreation,
+  validateScriptureThoughtIdInComment
+} from "../middleware/validationMiddleware.js";
+
 const router = express.Router();
 
-router.post("/", createComment);
-router.get("/:thoughtId", getCommentsForThought);
-router.patch("/:id", updateComment);
-router.delete("/:id", deleteComment);
+router.post(
+  "/",
+  validateScriptureThoughtIdInCommentCreation,
+  validateCommentInput,
+  createComment
+);
+
+router.get(
+  "/:thoughtId",
+  validateScriptureThoughtIdInComment,
+  getCommentsForThought
+);
+
+router.patch(
+  "/:id",
+  validateCommentIdParam,
+  validateCommentUpdateInput,
+  updateComment
+);
+router.delete("/:id", validateCommentIdParam, deleteComment);
 
 export default router;
