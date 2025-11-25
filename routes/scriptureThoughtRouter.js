@@ -4,7 +4,8 @@ import { validateScriptureThoughtInput, validateScriptureThoughtIdParam } from "
 import { 
     createThought, getAllThoughtsByUser,
     getOneThoughtById, getAllThoughts,
-    updateThoughtById, deleteThoughtById
+    updateThoughtById, deleteThoughtById,
+    likeThought, unlikeThought,
  } from '../controllers/scriptureThoughtController.js';
 
 const router = express.Router();
@@ -18,5 +19,7 @@ router.patch("/update-thought/:id",
     validateScriptureThoughtInput, 
     updateThoughtById);
 router.delete("/delete-thought/:id", validateScriptureThoughtIdParam, deleteThoughtById);
+router.post("/like-thought/:id", likeThought);
+router.post("/unlike-thought/:id", unlikeThought);
 
 export default router;
