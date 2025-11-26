@@ -28,7 +28,7 @@ const Profile = () => {
   return (
     <div className="profile-container fade-in">
       <div className="profile-card slide-up">
-        <h2 className="profile-title">My Profile Information</h2>
+        <h2 className="profile-title">Update Profile Information</h2>
 
         <Form method="post" className="profile-form">
           <div className="form-group">

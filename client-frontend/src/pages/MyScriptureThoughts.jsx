@@ -1,18 +1,18 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getThoughts, likeThought, unlikeThought, deleteThought } from "../api";
+import { toast } from "react-toastify";
+import { getUserThoughts, likeThought, unlikeThought, deleteThought } from "../api";
 
 export default function MyScriptureThoughts() {
   const [thoughts, setThoughts] = useState([]);
   const { user } = useOutletContext();
   const userId = user._id;
-  // const user = "691d8bc2684a2bcc6c7bb9c3"; // hardcoded user ID for testing
 
   const fetchThoughts = async () => {
-    const { data } = await getThoughts();
-    const myThoughts = data.filter((t) => t.userId === userId);
-    setThoughts(myThoughts);
+    const { data } = await getUserThoughts();
+    setThoughts(data);
   };
+  
 
   useEffect(() => {
     fetchThoughts();
@@ -35,20 +35,22 @@ export default function MyScriptureThoughts() {
 
     try {
       await deleteThought(thoughtId, userId);
-      alert("Thought deleted successfully!");
+      // alert("Thought deleted successfully!");
+      toast.success("Thought deleted successfully!");
       fetchThoughts();
     } catch (err) {
       console.error(
         "Error deleting thought:",
         err.response?.data || err.message
       );
-      alert("Failed to delete thought. Check console for details.");
+      // alert("Failed to delete thought. Check console for details.");
+      toast.error("Failed to Delete Scripture Thought, Try Again Later");
     }
   };
 
   return (
     <div>
-      <h2>My Thoughts</h2>
+      <h2>My Scripture Thoughts</h2>
       {thoughts.map((thought) => (
         <div
           key={thought._id}

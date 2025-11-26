@@ -5,6 +5,7 @@ const API = axios.create({
 });
 
 export const getThoughts = () => API.get("/get-all-thoughts");
+export const getUserThoughts = () => API.get("/get-all-thoughts-user");
 export const createThought = (thought) => API.post("/create-thought", thought);
 export const likeThought = (id, user) => API.post(`/like-thought/${id}`, { user });
 export const unlikeThought = (id, user) => API.post(`/unlike-thought/${id}`, { user });
