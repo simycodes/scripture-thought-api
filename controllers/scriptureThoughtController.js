@@ -109,8 +109,7 @@ export const deleteThoughtById = async (req, res) => {
 
     try {
         const { id } = req.params;
-        // const { user } = req.body;
-        const user = req.query.user;
+        const user = req.user.userId;
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid thought ID" });
@@ -132,7 +131,7 @@ export const deleteThoughtById = async (req, res) => {
 export const likeThought = async (req, res) => {
     
     const { id } = req.params;
-    const user = req.body.user;
+    const user = req.user.userId;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(400);
@@ -169,7 +168,7 @@ export const likeThought = async (req, res) => {
 
 export const unlikeThought = async (req, res) => {
     const { id } = req.params;
-    const user = req.body.user;
+    const user = req.user.userId;
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(400);

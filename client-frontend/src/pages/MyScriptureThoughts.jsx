@@ -20,9 +20,9 @@ export default function MyScriptureThoughts() {
 
   const handleLike = async (thought) => {
     if (thought.likes.includes(userId)) {
-      await unlikeThought(thought._id, userId);
+      await unlikeThought(thought._id);
     } else {
-      await likeThought(thought._id, userId);
+      await likeThought(thought._id);
     }
     fetchThoughts();
   };
@@ -34,7 +34,7 @@ export default function MyScriptureThoughts() {
     if (!confirmDelete) return;
 
     try {
-      await deleteThought(thoughtId, userId);
+      await deleteThought(thoughtId);
       // alert("Thought deleted successfully!");
       toast.success("Thought deleted successfully!");
       fetchThoughts();
