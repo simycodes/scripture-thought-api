@@ -18,6 +18,7 @@ import {
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as editProfileAction } from "./pages/EditProfile";
+import { action as addScriptureThoughtAction } from "./pages/AddScriptureThought";
 
 import { loader as DashboardLoader } from "./pages/DashboardLayout";
 
@@ -52,6 +53,7 @@ let router = createBrowserRouter([
           {
             index: true,
             element: <AddScriptureThought />,
+            action: addScriptureThoughtAction,
           },
           {
             path: "my-scripture-thoughts",
@@ -67,7 +69,7 @@ let router = createBrowserRouter([
           },
           {
             path: "profile",
-            element: <Profile />
+            element: <Profile />,
           },
           {
             path: "edit-profile",

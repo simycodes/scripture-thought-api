@@ -1,53 +1,62 @@
-import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import { createThought } from "../api"; 
-import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+import { Form, redirect, useNavigation } from "react-router-dom";
+import { toast } from "react-toastify"; 
+import customFetch from "../utils/customFetch";
+import "./AddScriptureThought.css";
+
+// ACTION FUNCTION TO HANDLE CREATE SCRIPTURE DATA SUBMISSION TO THE API
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData); 
+
+  try {
+    await customFetch.post("/scripture-thoughts/create-thought", data);
+    toast.success("Your Scripture Thought has been created successful");
+    return redirect("/dashboard/my-scripture-thoughts");
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+  
+};
 
 export default function AddScriptureThought() {
-  const [description, setDescription] = useState("");
-  const [scriptureVerse, setScriptureVerse] = useState("");
-  const [thought, setThought] = useState("");
-  const navigate = useNavigate();
-
-  const { user } = useOutletContext();
-  const userId = user._id;
-  // const user = "691d8bc2684a2bcc6c7bb9c3";   // hardcoded user ID for testing
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await createThought({ userId, description, scriptureVerse, thought });
-      setDescription("");
-      setScriptureVerse("");
-      setThought("");
-      alert("Thought added successfully!");
-      navigate("/dashboard/");
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        placeholder="Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-      <input
-        placeholder="Scripture Verse"
-        value={scriptureVerse}
-        onChange={(e) => setScriptureVerse(e.target.value)}
-        required
-      />
-      <textarea
-        placeholder="Thought"
-        value={thought}
-        onChange={(e) => setThought(e.target.value)}
-        required
-      />
-      <button type="submit">Add Thought</button>
-    </form>
+    <div className="profile-container fade-in">
+      <div className="profile-card slide-up">
+        <h2 className="profile-title">Create a Scripture Thought</h2>
+
+        <Form method="post" className="profile-form">
+          <div className="form-group">
+            <label>Description/Title</label>
+            <input type="text" name="description" required/>
+          </div>
+
+          <div className="form-group">
+            <label>Scripture Verse</label>
+            <input type="text" name="scriptureVerse" required/>
+          </div>
+
+          <div className="form-group">
+            <label>Your Scripture Thought</label>
+            <textarea
+              type="text"
+              name="thought"
+              placeholder="Thought"
+              required
+            />
+          </div>
+
+          <div className="submit-row">
+            <button type="submit" className="btn-save" disabled={isSubmitting}>
+              {isSubmitting ? "submitting..." : "Submit Scripture Thought"}
+            </button>
+          </div>
+        </Form>
+      </div>
+    </div>
   );
 }

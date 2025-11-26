@@ -1,0 +1,131 @@
+/* Main container */
+.profile-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+  padding: 20px;
+}
+
+/* Card */
+.profile-card {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 500px;
+}
+
+.profile-title {
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #444;
+}
+
+/* Form */
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  font-size: 15px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: 10px 12px;
+  border: 1px solid #e7a7b9;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.form-group input:focus {
+  border-color: #d85d82;
+  box-shadow: 0 0 3px rgba(216, 93, 130, 0.5);
+  transform: scale(1.02);
+}
+
+.form-group textarea {
+  padding: 10px 12px;
+  border: 1px solid #e7a7b9;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.form-group textarea:focus {
+  border-color: #d85d82;
+  box-shadow: 0 0 3px rgba(216, 93, 130, 0.5);
+  transform: scale(1.02);
+}
+
+/* Two-column layout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Submit button */
+.submit-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.btn-save {
+  background: #4c0eb6;
+  color: white;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-save:hover {
+  background: #4c0eb6;;
+  transform: translateY(-2px) scale(1.03);
+}
+
+/* Fade-in animation */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Slide-up animation */
+.slide-up {
+  animation: slideUp 0.9s ease;
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}

@@ -1,4 +1,4 @@
-import { useOutletContext, useNavigation, Form, Link } from "react-router-dom";
+import { useOutletContext, Form, Link } from "react-router-dom";
 import "./profile.css";
 
 const Profile = () => {
@@ -10,7 +10,7 @@ const Profile = () => {
       <div className="profile-card slide-up">
         <h2 className="profile-title">My Profile Information</h2>
 
-        <Form method="post" className="profile-form" noValidate>
+        <Form method="post" className="profile-form">
           <div className="form-group">
             <label>Name</label>
             <input type="text" name="name" defaultValue={name} disabled />

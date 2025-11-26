@@ -37,6 +37,7 @@ const Login = () => {
               name="email"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
               placeholder="you@example.com"
+              defaultValue={"mulenga@gmail.com"}
               required
             />
           </div>
@@ -47,6 +48,7 @@ const Login = () => {
             <input
               type="password"
               name="password"
+              defaultValue={"pass1234"}
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
               required
             />
