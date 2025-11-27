@@ -52,13 +52,12 @@ export const getOneThoughtById = async (req, res) => {
             return res.status(400).json({ message: "Invalid thought ID." });
         }
 
-        const thought = await ScriptureThoughtModel.findOne({ _id: id, user });
+        const scriptureThought = await ScriptureThoughtModel.findOne({ _id: id, user });
 
-        if (!thought) {
-            return res.status(404).json({ message: "Thought not found." });
+        if (!scriptureThought) {
+          return res.status(404).json({ message: "Thought not found." });
         }
-
-        res.status(200).json(thought);
+        res.status(200).json({ scriptureThought });
     } catch (err) {
         res.status(500).json({
             message: "Error retrieving scripture thought",

@@ -1,77 +1,85 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { Form, useLoaderData, redirect, useNavigation } from "react-router-dom";
+import { toast } from "react-toastify";
+import customFetch from "../utils/customFetch";
+import "./updateScriptureThought.css";
+import axios from "axios";
+
+// LOADER FUNCTION TO FETCH THE SCRIPTURE THOUGHT TO BE UPDATED
+export const loader = async ({ params }) => {
+  try {
+    const { data } = await customFetch.get(`/scripture-thoughts/get-thought/${params.id}`);
+    return data;
+  } catch (error) {
+    toast.error(error?.response.data.msg);
+    return redirect("/dashboard/my-scripture-thoughts");
+  }
+};
+
+// ACTION FUNCTION TO HANDLE UPDATE SCRIPTURE THOUGHT SUBMISSION TO THE API
+export const action = async ({ request, params }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    await customFetch.patch(`/scripture-thoughts/update-thought/${params.id}`, data);
+    toast.success("Your Scripture Thought has been updated successfully");
+    return redirect("/dashboard/my-scripture-thoughts");
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+    return error;
+  }
+};
 
 export default function EditScriptureThought() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const user = "691d8bc2684a2bcc6c7bb9c3"; // hardcoded user for testing
-  const [thoughtData, setThoughtData] = useState(null);
-  const [description, setDescription] = useState("");
-  const [scriptureVerse, setScriptureVerse] = useState("");
-  const [thought, setThought] = useState("");
-
-  useEffect(() => {
-    const fetchThought = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/thoughts/get-thought/${id}`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user }), // sending user in body
-        });
-
-        const data = await res.json();
-
-        if (data._id) {
-          setThoughtData(data);
-          setDescription(data.description);
-          setScriptureVerse(data.scriptureVerse);
-          setThought(data.thought);
-        }
-      } catch (err) {
-        console.error("Error fetching thought:", err);
-      }
-    };
-
-    fetchThought();
-  }, [id]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(`http://localhost:5000/thoughts/update-thought/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ user, description, scriptureVerse, thought }),
-      });
-
-      const data = await res.json();
-      console.log("Updated Thought:", data);
-      navigate("/dashboard/my-scripture-thoughts");
-    } catch (err) {
-      console.error("Error updating thought:", err);
-    }
-  };
-
-  if (!thoughtData) return <p>Loading...</p>;
+  const { scriptureThought } = useLoaderData();
+  console.log(scriptureThought);
+  const { description, scriptureVerse, thought } = scriptureThought;
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="Description"
-      />
-      <input
-        value={scriptureVerse}
-        onChange={(e) => setScriptureVerse(e.target.value)}
-        placeholder="Scripture Verse"
-      />
-      <textarea
-        value={thought}
-        onChange={(e) => setThought(e.target.value)}
-        placeholder="Your Thought"
-      />
-      <button type="submit">Update Thought</button>
-    </form>
+    <div className="profile-container fade-in">
+      <div className="profile-card slide-up">
+        <h2 className="profile-title">Create a Scripture Thought</h2>
+
+        <Form method="post" className="profile-form">
+          <div className="form-group">
+            <label>Description/Title</label>
+            <input
+              type="text"
+              name="description"
+              defaultValue={description}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Scripture Verse</label>
+            <input
+              type="text"
+              name="scriptureVerse"
+              defaultValue={scriptureVerse}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Your Scripture Thought</label>
+            <textarea
+              type="text"
+              name="thought"
+              defaultValue={thought}
+              rows="5"
+              required
+            />
+          </div>
+
+          <div className="submit-row">
+            <button type="submit" className="btn-save" disabled={isSubmitting}>
+              {isSubmitting ? "submitting..." : "Update Scripture Thought"}
+            </button>
+          </div>
+        </Form>
+      </div>
+    </div>
   );
 }

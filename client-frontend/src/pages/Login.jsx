@@ -59,7 +59,7 @@ const Login = () => {
             type="submit"
             className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow"
           >
-            {isSubmitting ? "submitting..." : "Login"}
+            {isSubmitting ? "Submitting..." : "Login"}
           </button>
         </Form>
 

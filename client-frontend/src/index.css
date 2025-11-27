@@ -1,4 +1,5 @@
 /* GLOBAL CSS */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Prata&display=swap');
 
 /* Tailwind */
 @tailwind base;
@@ -20,6 +21,12 @@ html {
 } /*16px*/
 
 body {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.12rem;
+
   background:#cbd5e1;
   color: var(--text-color);
   font-family: system-ui, Roboto

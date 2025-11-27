@@ -41,7 +41,7 @@ export default function AddScriptureThought() {
           </div>
 
           <div className="form-group">
-            <label>Scripture Verse</label>
+            <label className="label-text">Scripture Verse</label>
             <input
               type="text"
               name="scriptureVerse"

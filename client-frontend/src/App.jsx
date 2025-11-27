@@ -19,9 +19,10 @@ import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { action as editProfileAction } from "./pages/EditProfile";
 import { action as addScriptureThoughtAction } from "./pages/AddScriptureThought";
+import { action as editScriptureThoughtAction } from "./pages/EditScriptureThought";
 
 import { loader as DashboardLoader } from "./pages/DashboardLayout";
-
+import { loader as editScriptureThoughtLoader } from "./pages/EditScriptureThought";
 
 // WEB APP ROUTING
 let router = createBrowserRouter([
@@ -66,6 +67,8 @@ let router = createBrowserRouter([
           {
             path: "edit-scripture-thought/:id",
             element: <EditScriptureThought />,
+            loader: editScriptureThoughtLoader,
+            action: editScriptureThoughtAction,
           },
           {
             path: "profile",

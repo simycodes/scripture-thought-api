@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getUserThoughts, likeThought, unlikeThought, deleteThought } from "../api";
@@ -62,9 +62,11 @@ export default function MyScriptureThoughts() {
           </p>
           <p>{thought.thought}</p>
           <p>Likes: {thought.likeCount}</p>
+
           <button onClick={() => handleLike(thought)}>
             {thought.likes.includes(userId) ? "Unlike" : "Like"}
           </button>
+
           <button
             onClick={() => handleDelete(thought._id)}
             style={{
@@ -75,6 +77,11 @@ export default function MyScriptureThoughts() {
           >
             Delete
           </button>
+
+
+          <Link to={`/dashboard/edit-scripture-thought/${thought._id}`} className="text-blue-600 font-semibold ml-1">
+            | Update Scripture Thought
+          </Link>
         </div>
       ))}
     </div>
