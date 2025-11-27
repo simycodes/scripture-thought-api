@@ -1,8 +1,7 @@
 import { Form, useLoaderData, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
-import "./updateScriptureThought.css";
-import axios from "axios";
+import "./editScriptureThought.css";
 
 // LOADER FUNCTION TO FETCH THE SCRIPTURE THOUGHT TO BE UPDATED
 export const loader = async ({ params }) => {
@@ -40,7 +39,7 @@ export default function EditScriptureThought() {
   return (
     <div className="profile-container fade-in">
       <div className="profile-card slide-up">
-        <h2 className="profile-title">Create a Scripture Thought</h2>
+        <h2 className="profile-title">Update your Scripture Thought</h2>
 
         <Form method="post" className="profile-form">
           <div className="form-group">
