@@ -1,4 +1,4 @@
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getThoughts, likeThought, unlikeThought } from "../api";
 
@@ -39,9 +39,21 @@ export default function AllScriptureThoughts() {
           </p>
           <p>{thought.thought}</p>
           <p>Likes: {thought.likeCount}</p>
+
           <button onClick={() => handleLike(thought)}>
             {thought.likes.includes(userId) ? "Unlike" : "Like"}
           </button>
+
+
+          <Link
+            to={`/dashboard/comments/${thought._id}`}
+            className="text-blue-600 font-semibold ml-1"
+          >
+            | Comments
+          </Link>
+
+
+
         </div>
       ))}
     </div>

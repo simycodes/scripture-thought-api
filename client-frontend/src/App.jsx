@@ -12,6 +12,7 @@ import {
   AllScriptureThoughts,
   Profile,
   EditProfile,
+  ViewAndAddComments,
 } from "./pages";
 
 // Page Actions and Loaders
@@ -20,10 +21,11 @@ import { action as loginAction } from "./pages/Login";
 import { action as editProfileAction } from "./pages/EditProfile";
 import { action as addScriptureThoughtAction } from "./pages/AddScriptureThought";
 import { action as editScriptureThoughtAction } from "./pages/EditScriptureThought";
+import { action as commentsAction } from "./pages/ViewAndAddComments";
 
 import { loader as DashboardLoader } from "./pages/DashboardLayout";
 import { loader as editScriptureThoughtLoader } from "./pages/EditScriptureThought";
-
+import { loader as commentsLoader } from "./pages/ViewAndAddComments";
 // WEB APP ROUTING
 let router = createBrowserRouter([
   {
@@ -90,6 +92,12 @@ let router = createBrowserRouter([
           },
           {
             path: "delete-comment/:id",
+          },
+          {
+            path: "comments/:id",
+            element: <ViewAndAddComments />,
+            loader: commentsLoader,
+            action: commentsAction,
           },
         ],
       },

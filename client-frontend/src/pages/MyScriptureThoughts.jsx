@@ -78,9 +78,18 @@ export default function MyScriptureThoughts() {
             Delete
           </button>
 
-
-          <Link to={`/dashboard/edit-scripture-thought/${thought._id}`} className="text-blue-600 font-semibold ml-1">
+          <Link
+            to={`/dashboard/edit-scripture-thought/${thought._id}`}
+            className="text-blue-600 font-semibold ml-1"
+          >
             | Update Scripture Thought
+          </Link>
+
+          <Link
+            to={`/dashboard/comments/${thought._id}`}
+            className="text-blue-600 font-semibold ml-1"
+          >
+            | Comments
           </Link>
         </div>
       ))}

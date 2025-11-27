@@ -26,7 +26,6 @@ const DashboardLayout = () => {
   const navigate = useNavigate();
   const { user } = useLoaderData(); // get/destructure the user data from the above loader function
   const [isAuthError, setIsAuthError] = useState(false);
-  // const user = { name: "Simon", lastName: "Mule" };
 
   // FUNCTION TO LOGOUT USER
   const logoutUser = async () => {
