@@ -2,7 +2,7 @@
 import { Form, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify"; 
 import customFetch from "../utils/customFetch";
-import "./AddScriptureThought.css";
+import "./addScriptureThought.css";
 
 // ACTION FUNCTION TO HANDLE CREATE SCRIPTURE DATA SUBMISSION TO THE API
 export const action = async ({ request }) => {

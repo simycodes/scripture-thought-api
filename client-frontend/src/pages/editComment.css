@@ -20,11 +20,7 @@
 }
 
 .profile-title {
-  font-size: 15px;
-  font-style: italic;
-  font-weight: 600;
-  margin-bottom: 25px;
-  color: #444;
+  font-size: 1.3rem;
 }
 
 /* Form */
@@ -55,7 +51,6 @@
 }
 
 .form-group input:focus {
- 
   transform: scale(1.02);
 }
 
@@ -94,6 +89,7 @@
 
 .btn-save {
   font-size: 1.1rem;
+  text-align: center;
   background: #4c0eb6;
   color: white;
   padding: 20px 35px;
@@ -112,6 +108,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  text-align: center;
 }
 .comment-btn {
   font-size: 1rem;
@@ -157,5 +154,3 @@
   from { opacity: 0; transform: translateY(25px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
-/* ANIMATING NEW ADDED COMMENT */

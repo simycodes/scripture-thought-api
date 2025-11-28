@@ -17,6 +17,14 @@ const CommentSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    name: {
+      type: String,
+      trim: true,
+    },
+    lastName: {
+      type: String,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

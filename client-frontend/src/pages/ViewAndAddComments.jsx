@@ -1,21 +1,16 @@
-import { Form, useLoaderData, redirect, useNavigation } from "react-router-dom";
+import { Form, useOutletContext, useLoaderData, redirect, useNavigation, useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
-import "./ViewAndAddComments.css";
+import "./viewAndAddComments.css";
 
 // LOADER FUNCTION TO FETCH THE SCRIPTURE THOUGHT TO BE UPDATED
 export const loader = async ({ params }) => {
-  console.log("loader reached!");
   let scriptureThought = null;
   let comments = [];
   
   try {
     const response = await customFetch.get(`/scripture-thoughts/get-thought/${params.id}`);
     scriptureThought = response.data.scriptureThought;
-
-    // const { data } = await customFetch.get(`/scripture-thoughts/get-thought/${params.id}`);
-    // console.log(data);
-    // return data;
   } catch (error) {
     toast.error(error?.response.data.msg);
     return redirect("/dashboard/my-scripture-thoughts");
@@ -25,9 +20,6 @@ export const loader = async ({ params }) => {
    try {
     const response = await customFetch.get(`/comments/${params.id}`);
     comments = response.data.comments;
-     // const { comments } = await customFetch.get(`/comments/${params.id}`);
-     // console.log(comments);
-     // return data;
    } catch (error) {
      toast.error(error?.response.data.msg);
      return redirect("/dashboard/my-scripture-thoughts");
@@ -43,12 +35,12 @@ export const action = async ({ request, params }) => {
 
   const thoughtId = params.id;
   data.thoughtId = thoughtId;
-  console.log(data);
 
   try {
     await customFetch.post("/comments/", data);
-    toast.success("Your comment has been updated successfully");
-    return redirect("/dashboard/my-scripture-thoughts");
+    toast.success("Your comment has been created successfully");
+
+    return redirect(`/dashboard/comments/${params.id}`);
   } catch (error) {
     toast.error(error?.response?.data?.msg);
     return error;
@@ -56,17 +48,34 @@ export const action = async ({ request, params }) => {
 };
 
 const ViewAndAddComments = () => {
+  const { user } = useOutletContext();
+  const { name, lastName } = user;
   const { scriptureThought, comments} = useLoaderData();
-  console.log(scriptureThought);
-  console.log(comments);
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const { description, scriptureVerse, thought } = scriptureThought;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
-  console.log(description);
-  console.log(scriptureVerse);
-
+  // FUNCTION TO DELETE A SINGLE COMMENT
+  const handleDelete = async (commentId) => {
+    console.log("Delete function reached!");
+    console.log(id);
+      const confirmDelete = window.confirm(
+        "Are you sure you want to delete this comment?"
+      );
+      if (!confirmDelete) return;
+  
+      try {
+        await customFetch.delete(`comments/${commentId}`);
+        toast.success("Comment deleted successfully!");
+        return navigate(`/dashboard/comments/${id}`);
+      } catch (err) {
+        toast.error("Failed to Comment, Try Again Later");
+        return navigate(`/dashboard/comments/${id}`);
+      }
+    };
 
   return (
     <div className="comments-container fade-in">
@@ -107,7 +116,11 @@ const ViewAndAddComments = () => {
             />
           </div>
 
-          <Form method="post" className="profile-form">
+          <Form method="post" className="profile-form" key={comments.length}>
+          
+            <input type="hidden" name="name" defaultValue={name} required />
+            <input type="hidden" name="lastName" defaultValue={lastName} required />
+            
             <div className="form-group">
               <label>Add Comment</label>
               <textarea
@@ -131,21 +144,20 @@ const ViewAndAddComments = () => {
         </div>
       </div>
 
-      {/* CARD NUMBER TWO */}
+      {/* CARD NUMBER TWO DISPLAYING COMMENTS BY VARIOUS USERS */}
       <div className="profile-card slide-up">
         <h2 className="profile-title">Comments</h2>
 
         <div className="profile-form">
           {comments.length === 0 ? (
-            <p>No comments yet</p>
+            <p>There are no comments for this scripture thought, be the first to comment</p>
           ) : (
-            comments.map((c) => {
-              const date = new Date(c.createdAt).toLocaleString(); // format timestamp
+            comments.map((comment) => {
+              const date = new Date(comment.createdAt).toLocaleString();
 
               return (
-                <div className="form-group" key={c._id}>
+                <div className="form-group" key={comment._id}>
                   <label>
-                    Comment
                     <span
                       style={{
                         fontSize: "0.8rem",
@@ -153,17 +165,35 @@ const ViewAndAddComments = () => {
                         color: "#666",
                       }}
                     >
-                      ({date})
+                      {comment.name} {comment.lastName} - {date}
                     </span>
                   </label>
 
                   <textarea
                     type="text"
                     name="comment"
-                    defaultValue={c.comment}
-                    rows="3"
+                    defaultValue={comment.comment}
+                    rows="2"
                     disabled
                   />
+
+                  {user._id === comment.userId && (
+                    <div className="comment-btns-container">
+                      <Link
+                        to={`/dashboard/edit-comment/${comment._id}/${id}`}
+                        className="comment-btn"
+                      >
+                        Update
+                      </Link>
+
+                      <button
+                        onClick={() => handleDelete(comment._id)}
+                        className="comment-btn comment-btn-delete"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               );
             })

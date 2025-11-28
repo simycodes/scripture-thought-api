@@ -46,13 +46,13 @@ export const getAllThoughtsByUser = async (req, res) => {
 export const getOneThoughtById = async (req, res) => {
     try {
         const { id } = req.params;
-        const user = req.user.userId;
+        const user = req.user.userId; // removed user id when getting scripture thought to allow all users to get thought when getting comments but only user who created thought can update/delete it
 
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid thought ID." });
         }
 
-        const scriptureThought = await ScriptureThoughtModel.findOne({ _id: id, user });
+        const scriptureThought = await ScriptureThoughtModel.findOne({ _id: id });
 
         if (!scriptureThought) {
           return res.status(404).json({ message: "Thought not found." });

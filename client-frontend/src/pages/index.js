@@ -11,3 +11,4 @@ export { default as MyScriptureThoughts } from "./MyScriptureThoughts";
 export { default as Profile } from "./Profile";
 export { default as EditProfile } from "./EditProfile";
 export { default as ViewAndAddComments } from "./ViewAndAddComments";
+export { default as EditComment } from "./EditComment";

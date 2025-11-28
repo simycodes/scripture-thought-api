@@ -5,12 +5,14 @@ import mongoose from "mongoose";
 // CREATE COMMENT
 export const createComment = async (req, res) => {
   const userId = req.user.userId;
-  const { thoughtId, comment } = req.body;
+  const { thoughtId, comment, name, lastName} = req.body;
 
   const newComment = await Comment.create({
     userId,
     thoughtId,
     comment,
+    name,
+    lastName
   });
 
   res.status(StatusCodes.CREATED).json({ comment: newComment });
@@ -20,9 +22,18 @@ export const createComment = async (req, res) => {
 export const getCommentsForThought = async (req, res) => {
   const { thoughtId } = req.params;
 
-  const comments = await Comment.find({ thoughtId }).sort("createdAt");
+  const comments = await Comment.find({ thoughtId }).sort({ createdAt: -1 });
 
   res.status(StatusCodes.OK).json({ comments });
+};
+
+// GET SINGLE COMMENT
+export const getSingleComment = async (req, res) => {
+  console.log("getSingleComment controller reached!");
+  const { id } = req.params;
+  const comment = await Comment.findOne({ _id: id });
+  console.log({ comment });
+  res.status(StatusCodes.OK).json({ comment });
 };
 
 // UPDATE COMMENT (only your own)

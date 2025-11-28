@@ -2,6 +2,7 @@ import express from "express";
 import {
   createComment,
   getCommentsForThought,
+  getSingleComment,
   updateComment,
   deleteComment,
 } from "../controllers/commentController.js";
@@ -28,6 +29,8 @@ router.get(
   validateScriptureThoughtIdInComment,
   getCommentsForThought
 );
+
+router.get("/get-single-comment/:id", validateCommentIdParam, getSingleComment);
 
 router.patch(
   "/:id",
