@@ -12,7 +12,6 @@ export default function MyScriptureThoughts() {
     const { data } = await getUserThoughts();
     setThoughts(data);
   };
-  
 
   useEffect(() => {
     fetchThoughts();
@@ -35,7 +34,6 @@ export default function MyScriptureThoughts() {
 
     try {
       await deleteThought(thoughtId);
-      // alert("Thought deleted successfully!");
       toast.success("Thought deleted successfully!");
       fetchThoughts();
     } catch (err) {
@@ -43,56 +41,62 @@ export default function MyScriptureThoughts() {
         "Error deleting thought:",
         err.response?.data || err.message
       );
-      // alert("Failed to delete thought. Check console for details.");
       toast.error("Failed to Delete Scripture Thought, Try Again Later");
     }
   };
 
   return (
-    <div>
-      <h2>My Scripture Thoughts</h2>
-      {thoughts.map((thought) => (
-        <div
-          key={thought._id}
-          style={{ border: "1px solid black", margin: "10px", padding: "10px" }}
-        >
-          <h3>{thought.description}</h3>
-          <p>
-            <strong>{thought.scriptureVerse}</strong>
-          </p>
-          <p>{thought.thought}</p>
-          <p>Likes: {thought.likeCount}</p>
+    <div className="max-w-3xl mx-auto p-6">
+      <h2 className="text-2xl font-bold mb-6 text-gray-800">My Scripture Thoughts</h2>
 
-          <button onClick={() => handleLike(thought)}>
-            {thought.likes.includes(userId) ? "Unlike" : "Like"}
-          </button>
-
-          <button
-            onClick={() => handleDelete(thought._id)}
-            style={{
-              marginLeft: "10px",
-              backgroundColor: "red",
-              color: "white",
-            }}
+      <div className="space-y-6">
+        {thoughts.map((thought) => (
+          <div
+            key={thought._id}
+            className="border rounded-2xl p-5 shadow-sm bg-white hover:shadow-md transition"
           >
-            Delete
-          </button>
+            <h3 className="text-xl font-semibold text-gray-900">{thought.description}</h3>
 
-          <Link
-            to={`/dashboard/edit-scripture-thought/${thought._id}`}
-            className="text-blue-600 font-semibold ml-1"
-          >
-            | Update Scripture Thought
-          </Link>
+            <p className="mt-2 text-sm text-gray-600 font-medium">
+              <strong>{thought.scriptureVerse}</strong>
+            </p>
 
-          <Link
-            to={`/dashboard/comments/${thought._id}`}
-            className="text-blue-600 font-semibold ml-1"
-          >
-            | Comments
-          </Link>
-        </div>
-      ))}
+            <p className="mt-3 text-gray-700 leading-relaxed">{thought.thought}</p>
+
+            <p className="mt-3 text-gray-600 text-sm">Likes: {thought.likeCount}</p>
+
+            <div className="mt-4 flex items-center gap-3 flex-wrap">
+              <button
+                onClick={() => handleLike(thought)}
+                className="px-4 py-2 rounded-xl bg-blue-600 text-white text-sm hover:bg-blue-700 transition"
+              >
+                {thought.likes.includes(userId) ? "Unlike" : "Like"}
+              </button>
+
+              <button
+                onClick={() => handleDelete(thought._id)}
+                className="px-4 py-2 rounded-xl bg-red-600 text-white text-sm hover:bg-red-700 transition"
+              >
+                Delete
+              </button>
+
+              <Link
+                to={`/dashboard/edit-scripture-thought/${thought._id}`}
+                className="px-4 py-2 rounded-xl bg-green-600 text-white text-sm hover:bg-green-700 transition"
+              >
+                Update Scripture Thought
+              </Link>
+
+              <Link
+                to={`/dashboard/comments/${thought._id}`}
+                className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm hover:bg-purple-700 transition"
+              >
+                Comments
+              </Link>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
