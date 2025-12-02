@@ -53,7 +53,7 @@ export const getOneThoughtById = async (req, res) => {
         }
 
         const scriptureThought = await ScriptureThoughtModel.findOne({ _id: id });
-
+        console.log(scriptureThought);
         if (!scriptureThought) {
           return res.status(404).json({ message: "Thought not found." });
         }

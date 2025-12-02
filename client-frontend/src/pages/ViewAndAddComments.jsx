@@ -7,19 +7,23 @@ import "./viewAndAddComments.css";
 export const loader = async ({ params }) => {
   let scriptureThought = null;
   let comments = [];
+
+  console.log(params.id);
   
   try {
     const response = await customFetch.get(`/scripture-thoughts/get-thought/${params.id}`);
     scriptureThought = response.data.scriptureThought;
+    console.log(scriptureThought);
   } catch (error) {
     toast.error(error?.response.data.msg);
-    return redirect("/dashboard/my-scripture-thoughts");
+    // return redirect("/dashboard/my-scripture-thoughts");
   }
 
   // GET COMMENTS
    try {
     const response = await customFetch.get(`/comments/${params.id}`);
     comments = response.data.comments;
+    console.log(comments);
    } catch (error) {
      toast.error(error?.response.data.msg);
      return redirect("/dashboard/my-scripture-thoughts");

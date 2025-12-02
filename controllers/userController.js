@@ -29,3 +29,9 @@ export const deleteUser = async (req, res) => {
   const removedUser = await User.findByIdAndDelete(id);
   res.status(StatusCodes.OK).json({ msg: "User deleted successfully" });
 };
+
+// GET ALL USERS DETAILS FOR COMMENT DETAILS DISPLAY
+export const getUsersForComments = async (req, res) => {
+  const users = await User.find().select("name lastName");
+  res.status(StatusCodes.OK).json({ users });
+};

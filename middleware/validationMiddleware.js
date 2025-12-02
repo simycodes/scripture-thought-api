@@ -104,12 +104,6 @@ export const validateScriptureThoughtIdParam = withValidationErrors([
 
     const scriptureThought = await ScriptureThought.findById(value);
     if (!scriptureThought) throw new Error(`no scripture thought with id : ${value}`);
- 
-    // Verify if user has authority to access each item from DB/is user is admin (can access all data)
-    const isAdmin = req.user.role === "admin";
-    const isOwner = req.user.userId === scriptureThought.user.toString();
-    if (!isAdmin && !isOwner)
-      throw UnauthorizedError("not authorized to access this route(resource)");
   }),
 ]);
 
@@ -148,7 +142,7 @@ export const validateCommentIdParam = withValidationErrors([
     const isAdmin = req.user.role === "admin";
     const isOwner = req.user.userId === comment.userId.toString();
     if (!isAdmin && !isOwner)
-      throw UnauthorizedError("not authorized to access this route(resource)");
+      throw new UnauthorizedError("You are not authorized to access this route(resource)");
   }),
 ]);
 
