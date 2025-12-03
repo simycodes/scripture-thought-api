@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import day from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+day.extend(relativeTime);
 import "./myScriptureThought.css";
 
-
 const MyScriptureThoughtInAllThoughts = ({thought, user, handleLike}) => {
+  const timeAgo = day(thought.createdAt).fromNow();
+
   return (
     <div
       key={thought._id}
@@ -11,8 +15,9 @@ const MyScriptureThoughtInAllThoughts = ({thought, user, handleLike}) => {
     >
       <h3 className="font-semibold">
         <i>
-          {thought.description}...<i className="text-blue-600 text-sm">thought by..</i>
-          {thought.name} {thought.lastName}
+          {thought.description}...
+          <i className="text-blue-600 text-sm">thought by..</i>
+          {thought.name} {thought.lastName} (<i className="text-blue-600 text-sm">{timeAgo}</i>)
         </i>
       </h3>
 

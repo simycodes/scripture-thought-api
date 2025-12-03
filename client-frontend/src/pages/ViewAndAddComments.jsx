@@ -1,5 +1,8 @@
 import { Form, useOutletContext, useLoaderData, redirect, useNavigation, useParams, useNavigate, Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import day from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+day.extend(relativeTime);
 import customFetch from "../utils/customFetch";
 import "./viewAndAddComments.css";
 
@@ -175,7 +178,7 @@ const ViewAndAddComments = () => {
             </p>
           ) : (
             comments.map((comment) => {
-              const date = new Date(comment.createdAt).toLocaleString();
+              const timeAgo = day(comment.createdAt).fromNow();
 
               return (
                 <div className="form-group" key={comment._id}>
@@ -187,7 +190,7 @@ const ViewAndAddComments = () => {
                         color: "#666",
                       }}
                     >
-                      {comment.name} {comment.lastName} - {date}
+                      {comment.name} {comment.lastName} - {timeAgo}
                     </span>
                   </label>
 
