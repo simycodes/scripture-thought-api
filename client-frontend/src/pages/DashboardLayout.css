@@ -30,6 +30,13 @@
   margin-bottom: 10px;
 }
 
+.logo {
+  width: 120px;
+  margin-left: 17px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+}
+
 /* vertical nav links */
 .nav-links {
   display: flex;

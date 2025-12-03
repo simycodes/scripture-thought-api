@@ -7,9 +7,9 @@ const MyScriptureThoughtInAllThoughts = ({thought, user, handleLike}) => {
   return (
     <div
       key={thought._id}
-      className="border rounded-2xl p-5 shadow-sm bg-white hover:shadow-md transition"
+      className="thought-wrapper border rounded-2xl p-5 shadow-sm bg-white hover:shadow-md transition"
     >
-      <h3 className="text-xl font-semibold text-gray-900">
+      <h3 className="font-semibold">
         {thought.description} - thought by {thought.name} {thought.lastName}
       </h3>
 

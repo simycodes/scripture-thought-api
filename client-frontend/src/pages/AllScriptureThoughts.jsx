@@ -1,7 +1,8 @@
-import { useOutletContext, Link, redirect } from "react-router-dom";
+import { useOutletContext, redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import MyScriptureThoughtInAllThoughts from "../components/MyScriptureThoughtInAllThoughts";
+import "./myScriptureThoughts.css";
 import customFetch from "../utils/customFetch";
 import {
   getThoughts,
@@ -70,10 +71,10 @@ export default function AllScriptureThoughts() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="thoughts-holder">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">All Thoughts</h2>
 
-      <div className="space-y-6">
+      <div className="thoughts-container">
         {thoughts.map((thought) => {
           return (
             <MyScriptureThoughtInAllThoughts
@@ -84,7 +85,6 @@ export default function AllScriptureThoughts() {
             />
           );
         })}
-
       </div>
     </div>
   );

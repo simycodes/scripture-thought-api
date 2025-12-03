@@ -3,11 +3,12 @@ import { IoIosAddCircle } from "react-icons/io";
 import { IoIosPerson } from "react-icons/io";
 import { GiNothingToSay } from "react-icons/gi";
 import { TfiThought } from "react-icons/tfi";
+import logo from "../assets/images/logo.jpg";
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <h1 className="sidebar-title">Logo</h1>
+      <img src={logo} alt="scripture-thought-logo" className="logo" />
 
       <div className="nav-links">
         <NavLink to={"."} className="" end>

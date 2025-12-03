@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import MyScriptureThought from "../components/MyScriptureThought"
+import "./myScriptureThoughts.css";
 import { getUserThoughts, likeThought, unlikeThought, deleteThought } from "../api";
 
 export default function MyScriptureThoughts() {
@@ -48,26 +49,23 @@ export default function MyScriptureThoughts() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">
+    <div className="thoughts-holder">
+      <h1 className="text-2xl font-bold mb-6 text-gray-800">
         My Scripture Thoughts
-      </h2>
+      </h1>
 
-      <div className="space-y-6">
-
-        {
-          thoughts.map((thought) => {
-            return <MyScriptureThought 
-                key={thought._id} 
-                thought={thought} 
-                user={user}
-                handleLike={handleLike}
-                handleDelete={handleDelete}
-              />
-          })
-        }
-
-       
+      <div className="thoughts-container">
+        {thoughts.map((thought) => {
+          return (
+            <MyScriptureThought
+              key={thought._id}
+              thought={thought}
+              user={user}
+              handleLike={handleLike}
+              handleDelete={handleDelete}
+            />
+          );
+        })}
       </div>
     </div>
   );
