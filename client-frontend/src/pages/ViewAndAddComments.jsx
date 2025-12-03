@@ -54,7 +54,7 @@ export const action = async ({ request, params }) => {
 const ViewAndAddComments = () => {
   const { user } = useOutletContext();
   const { name, lastName } = user;
-  const { scriptureThought, comments} = useLoaderData();
+  const { scriptureThought, comments } = useLoaderData();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -66,20 +66,22 @@ const ViewAndAddComments = () => {
   const handleDelete = async (commentId) => {
     console.log("Delete function reached!");
     console.log(id);
-      const confirmDelete = window.confirm(
-        "Are you sure you want to delete this comment?"
-      );
-      if (!confirmDelete) return;
-  
-      try {
-        await customFetch.delete(`comments/${commentId}`);
-        toast.success("Comment deleted successfully!");
-        return navigate(`/dashboard/comments/${id}`);
-      } catch (err) {
-        toast.error("Failed to Comment, Try Again Later");
-        return navigate(`/dashboard/comments/${id}`);
-      }
-    };
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this comment?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      await customFetch.delete(`comments/${commentId}`);
+      toast.success("Comment deleted successfully!");
+      return navigate(`/dashboard/comments/${id}`);
+    } catch (err) {
+      toast.error("Failed to Comment, Try Again Later");
+      return navigate(`/dashboard/comments/${id}`);
+    }
+  };
+
+  // DISPLAY LOADING NOTIFICATION WHEN THE SCRIPTURE THOUGHT AND ITS COMMENTS ARE BEING FETCHED FROM API
 
   return (
     <div className="comments-container fade-in">
@@ -121,10 +123,14 @@ const ViewAndAddComments = () => {
           </div>
 
           <Form method="post" className="profile-form" key={comments.length}>
-          
             <input type="hidden" name="name" defaultValue={name} required />
-            <input type="hidden" name="lastName" defaultValue={lastName} required />
-            
+            <input
+              type="hidden"
+              name="lastName"
+              defaultValue={lastName}
+              required
+            />
+
             <div className="form-group">
               <label>Add Comment</label>
               <textarea
@@ -154,7 +160,10 @@ const ViewAndAddComments = () => {
 
         <div className="profile-form">
           {comments.length === 0 ? (
-            <p>There are no comments for this scripture thought, be the first to comment</p>
+            <p>
+              There are no comments for this scripture thought, be the first to
+              comment
+            </p>
           ) : (
             comments.map((comment) => {
               const date = new Date(comment.createdAt).toLocaleString();

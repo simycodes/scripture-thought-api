@@ -10,7 +10,10 @@ const MyScriptureThoughtInAllThoughts = ({thought, user, handleLike}) => {
       className="thought-wrapper border rounded-2xl p-5 shadow-sm bg-white hover:shadow-md transition"
     >
       <h3 className="font-semibold">
-        {thought.description} - thought by {thought.name} {thought.lastName}
+        <i>
+          {thought.description} - <i className="text-blue-600">thought by </i>{" "}
+          {thought.name} {thought.lastName}
+        </i>
       </h3>
 
       <p className="mt-2 text-sm text-gray-600 font-medium">

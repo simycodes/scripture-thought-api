@@ -10,7 +10,10 @@ const MyScriptureThought = ({thought, user, handleLike, handleDelete}) => {
       className="thought-wrapper border rounded-2xl p-5 shadow-sm bg-white hover:shadow-md transition"
     >
       <h3 className="font-semibold">
-        {thought.description} - thought by You {user.name} {user.lastName}
+        <i>
+          {thought.description} - <i className="text-blue-600">thought by you</i>{" "}
+          {user.name} {user.lastName}
+        </i>
       </h3>
 
       <p className="mt-2 text-sm text-gray-600 font-medium">
@@ -29,6 +32,13 @@ const MyScriptureThought = ({thought, user, handleLike, handleDelete}) => {
           {thought.likes.includes(user._id) ? "Unlike" : "Like"}
         </button>
 
+        <Link
+          to={`/dashboard/comments/${thought._id}`}
+          className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm hover:bg-purple-700 transition"
+        >
+          Comments
+        </Link>
+
         <button
           onClick={() => handleDelete(thought._id)}
           className="px-4 py-2 rounded-xl bg-red-600 text-white text-sm hover:bg-red-700 transition"
@@ -41,13 +51,6 @@ const MyScriptureThought = ({thought, user, handleLike, handleDelete}) => {
           className="px-4 py-2 rounded-xl bg-green-600 text-white text-sm hover:bg-green-700 transition"
         >
           Update Scripture Thought
-        </Link>
-
-        <Link
-          to={`/dashboard/comments/${thought._id}`}
-          className="px-4 py-2 rounded-xl bg-purple-600 text-white text-sm hover:bg-purple-700 transition"
-        >
-          Comments
         </Link>
       </div>
     </div>
