@@ -11,7 +11,7 @@ const MyScriptureThoughtInAllThoughts = ({thought, user, handleLike}) => {
     >
       <h3 className="font-semibold">
         <i>
-          {thought.description} - <i className="text-blue-600">thought by </i>{" "}
+          {thought.description}...<i className="text-blue-600 text-sm">thought by..</i>
           {thought.name} {thought.lastName}
         </i>
       </h3>

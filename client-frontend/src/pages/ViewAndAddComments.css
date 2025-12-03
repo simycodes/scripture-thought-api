@@ -55,7 +55,6 @@
 }
 
 .form-group input:focus {
- 
   transform: scale(1.02);
 }
 

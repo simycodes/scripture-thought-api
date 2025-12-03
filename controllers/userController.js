@@ -31,7 +31,14 @@ export const deleteUser = async (req, res) => {
 };
 
 // GET ALL USERS DETAILS FOR COMMENT DETAILS DISPLAY
-export const getUsersForComments = async (req, res) => {
+export const getUsersForScriptureThoughts = async (req, res) => {
   const users = await User.find().select("name lastName");
   res.status(StatusCodes.OK).json({ users });
+};
+
+// GET ALL USERS DETAILS FOR SCRIPTURE THOUGHT DETAILS DISPLAY IN ADD/DELETE COMMENTS PAGE
+export const getUserForSingleScriptureThought = async (req, res) => {
+  const { id } = req.params;
+  const userDetails = await User.findById(id).select("name lastName");
+  res.status(StatusCodes.OK).json({ userDetails });
 };

@@ -31,10 +31,10 @@ export default function AllScriptureThoughts() {
       return;
     }
 
-    // GET THE USERS (name and lastName) FOR THE COMMENTS
+    // GET THE USERS (name and lastName) FOR EACH SCRIPTURE THOUGHT
     try {
-      const response = await customFetch.get("/users/get-users-for-comments");
-      users = response.data.users; 
+      const response = await customFetch.get("/users/get-users-for-scripture-thoughts");
+      users = response.data.users;
     } catch (error) {
       toast.error(error?.response.data.msg);
       return redirect("/dashboard/");

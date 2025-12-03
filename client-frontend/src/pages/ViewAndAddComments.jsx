@@ -7,29 +7,37 @@ import "./viewAndAddComments.css";
 export const loader = async ({ params }) => {
   let scriptureThought = null;
   let comments = [];
+  let userDetails = null;
 
-  console.log(params.id);
-  
+  // GET SCRIPTURE THOUGHT
   try {
     const response = await customFetch.get(`/scripture-thoughts/get-thought/${params.id}`);
     scriptureThought = response.data.scriptureThought;
-    console.log(scriptureThought);
   } catch (error) {
     toast.error(error?.response.data.msg);
-    // return redirect("/dashboard/my-scripture-thoughts");
+    return redirect("/dashboard/my-scripture-thoughts");
+  }
+
+  // GET NAME AND LAST NAME OF USER THAT CREATED THE SCRIPTURE THOUGHT
+  try {
+    const response = await customFetch.get(`/users/get-user-for-single-scripture-thought/${scriptureThought.user}`);
+    userDetails = response.data.userDetails;
+    console.log(userDetails);
+  } catch (error) {
+    toast.error(error?.response.data.msg);
+    return redirect("/dashboard/my-scripture-thoughts");
   }
 
   // GET COMMENTS
    try {
     const response = await customFetch.get(`/comments/${params.id}`);
     comments = response.data.comments;
-    console.log(comments);
    } catch (error) {
      toast.error(error?.response.data.msg);
      return redirect("/dashboard/my-scripture-thoughts");
    }
 
-   return { scriptureThought, comments };
+   return { scriptureThought, comments, userDetails };
 };
 
 // ACTION FUNCTION TO HANDLE UPDATE SCRIPTURE THOUGHT SUBMISSION TO THE API
@@ -54,7 +62,7 @@ export const action = async ({ request, params }) => {
 const ViewAndAddComments = () => {
   const { user } = useOutletContext();
   const { name, lastName } = user;
-  const { scriptureThought, comments } = useLoaderData();
+  const { scriptureThought, comments, userDetails } = useLoaderData();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -81,13 +89,14 @@ const ViewAndAddComments = () => {
     }
   };
 
-  // DISPLAY LOADING NOTIFICATION WHEN THE SCRIPTURE THOUGHT AND ITS COMMENTS ARE BEING FETCHED FROM API
-
   return (
     <div className="comments-container fade-in">
       <div className="profile-card slide-up">
         <h2 className="profile-title">
-          View and Add Comments to this Scripture Thought
+          View, Add & Update Comments to this Scripture Thought by{" "}
+          <i className="text-blue-600">
+            {userDetails.name} {userDetails.lastName}
+          </i>
         </h2>
 
         <div className="profile-form">
@@ -117,7 +126,7 @@ const ViewAndAddComments = () => {
               type="text"
               name="thought"
               defaultValue={thought}
-              rows="3"
+              rows="4"
               disabled
             />
           </div>
