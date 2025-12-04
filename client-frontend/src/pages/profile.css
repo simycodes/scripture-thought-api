@@ -59,6 +59,13 @@
   transform: scale(1.02);
 }
 
+.comment-btns-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
 /* Two-column layout */
 .two-col {
   display: grid;
@@ -94,6 +101,21 @@
 .btn-save:hover {
   background: #b82859;
   transform: translateY(-2px) scale(1.03);
+}
+
+.cancel-btn {
+  background: #da0e0e;
+  font-size: 1.1rem;
+  color: white;
+  padding: 20px 35px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.cancel-btn:hover {
+  background: #4c0eb6;;
 }
 
 /* Fade-in animation */

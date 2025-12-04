@@ -1,4 +1,4 @@
-import { useOutletContext, useNavigation, Form, redirect } from "react-router-dom";
+import { useOutletContext, useNavigation, Form, redirect, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import "./profile.css";
@@ -50,10 +50,28 @@ const Profile = () => {
             <input type="email" name="email" defaultValue={email} required />
           </div>
 
-          <div className="submit-row">
-            <button type="submit" className="btn-save" disabled={isSubmitting}>
-              {isSubmitting ? "submitting..." : "Update Information"}
-            </button>
+          <div className="comment-btns-container">
+            <div className="submit-row">
+              <button
+                type="submit"
+                className="cancel-btn"
+                disabled={isSubmitting}
+              >
+                <Link to={"/dashboard/profile"}>
+                  {isSubmitting ? "submitting..." : "Cancel"}
+                </Link>
+              </button>
+            </div>
+
+            <div className="submit-row">
+              <button
+                type="submit"
+                className="btn-save"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "submitting..." : "Update Information"}
+              </button>
+            </div>
           </div>
         </Form>
       </div>

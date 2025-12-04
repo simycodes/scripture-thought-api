@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { IoIosAddCircle } from "react-icons/io";
 import { IoIosPerson } from "react-icons/io";
@@ -8,7 +9,9 @@ import logo from "../assets/images/logo.jpg";
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <img src={logo} alt="scripture-thought-logo" className="logo" />
+      <Link to={"/dashboard/my-scripture-thoughts"}>
+        <img src={logo} alt="scripture-thought-logo" className="logo" />
+      </Link>
 
       <div className="nav-links">
         <NavLink to={"."} className="" end>

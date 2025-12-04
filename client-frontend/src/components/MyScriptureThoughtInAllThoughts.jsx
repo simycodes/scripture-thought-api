@@ -17,7 +17,10 @@ const MyScriptureThoughtInAllThoughts = ({thought, user, handleLike}) => {
         <i>
           {thought.description}...
           <i className="text-blue-600 text-sm">thought by..</i>
-          {thought.name} {thought.lastName} (<i className="text-blue-600 text-sm">{timeAgo}</i>)
+          <i className="text-sm">
+            {user.name} {user.lastName}{" "}
+          </i>
+          (<i className="text-blue-600 text-sm">{timeAgo}</i>)
         </i>
       </h3>
 

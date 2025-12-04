@@ -18,8 +18,10 @@ const MyScriptureThought = ({thought, user, handleLike, handleDelete}) => {
         <i>
           {thought.description}...
           <i className="text-blue-600 text-sm">thought by you</i>..
-          {user.name} {user.lastName} (
-          <i className="text-blue-600 text-sm">{timeAgo}</i>)
+          <i className="text-sm">
+            {user.name} {user.lastName}{" "}
+          </i>
+          (<i className="text-blue-600 text-sm">{timeAgo}</i>)
         </i>
       </h3>
 

@@ -4,6 +4,7 @@ import day from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 day.extend(relativeTime);
 import customFetch from "../utils/customFetch";
+import Comment from "../components/Comment";
 import "./viewAndAddComments.css";
 
 // LOADER FUNCTION TO FETCH THE SCRIPTURE THOUGHT TO BE UPDATED
@@ -181,45 +182,14 @@ const ViewAndAddComments = () => {
               const timeAgo = day(comment.createdAt).fromNow();
 
               return (
-                <div className="form-group" key={comment._id}>
-                  <label>
-                    <span
-                      style={{
-                        fontSize: "0.8rem",
-                        marginLeft: "8px",
-                        color: "#666",
-                      }}
-                    >
-                      {comment.name} {comment.lastName} - {timeAgo}
-                    </span>
-                  </label>
-
-                  <textarea
-                    type="text"
-                    name="comment"
-                    defaultValue={comment.comment}
-                    rows="2"
-                    disabled
-                  />
-
-                  {user._id === comment.userId && (
-                    <div className="comment-btns-container">
-                      <Link
-                        to={`/dashboard/edit-comment/${comment._id}/${id}`}
-                        className="comment-btn"
-                      >
-                        Update
-                      </Link>
-
-                      <button
-                        onClick={() => handleDelete(comment._id)}
-                        className="comment-btn comment-btn-delete"
-                      >
-                        Delete
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <Comment
+                  key={comment._id}
+                  comment={comment}
+                  timeAgo={timeAgo}
+                  user={user}
+                  id={id}
+                  handleDelete={handleDelete}
+                />
               );
             })
           )}
