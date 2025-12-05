@@ -41,6 +41,7 @@ export default function EditScriptureThought() {
       <div className="profile-card slide-up">
         <h2 className="profile-title">Update your Scripture Thought</h2>
 
+        {/* SCRIPTURE THOUGHT DETAILS */}
         <Form method="post" className="profile-form">
           <div className="form-group">
             <label>Description/Title</label>

@@ -77,6 +77,7 @@ export default function MyScriptureThoughts() {
         My Scripture Thoughts
       </h1>
 
+      {/* DISPLAY THE LIST OF USER SCRIPTURE THOUGHTS */}
       <div className="thoughts-container">
         {thoughts.map((thought) => {
           return (

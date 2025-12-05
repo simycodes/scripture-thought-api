@@ -52,6 +52,7 @@ const EditComment = () => {
       <div className="profile-card slide-up">
         <h2>Update Your Comment</h2>
 
+        {/* COMMENT DETAILS */}
         <div className="profile-form">
           <Form method="post" className="profile-form">
             <div className="form-group">

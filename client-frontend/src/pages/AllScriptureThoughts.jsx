@@ -98,6 +98,7 @@ export default function AllScriptureThoughts() {
     <div className="thoughts-holder">
       <h2 className="text-2xl font-bold mb-6 text-gray-800">All Thoughts</h2>
 
+      {/* DISPLAY THE LIST OF USER SCRIPTURE THOUGHTS */}
       <div className="thoughts-container">
         {thoughts.map((thought) => {
           return (

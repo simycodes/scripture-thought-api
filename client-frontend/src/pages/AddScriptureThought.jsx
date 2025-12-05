@@ -29,6 +29,7 @@ export default function AddScriptureThought() {
       <div className="profile-card slide-up">
         <h2 className="profile-title">Create a Scripture Thought</h2>
 
+        {/* SCRIPTURE THOUGHT DETAILS TO BE ENTERED */}
         <Form method="post" className="profile-form">
           <div className="form-group">
             <label>Description/Title</label>

@@ -10,6 +10,7 @@ const Profile = () => {
       <div className="profile-card slide-up">
         <h2 className="profile-title">My Profile Information</h2>
 
+        {/* USER PROFILE DETAILS */}
         <Form method="post" className="profile-form">
           <div className="form-group">
             <label>Name</label>
