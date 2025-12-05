@@ -1,8 +1,9 @@
 import { Link, Form, redirect, useNavigation } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
-// ACTION FUNCTION TO HANDLE LOGIN DATA SUBMISSION TO THE API
+// ACTION: LOGIN USER
 export const action = async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
@@ -22,21 +23,33 @@ const Login = () => {
   const isSubmitting = navigation.state === "submitting";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+    <div className="relative min-h-screen flex items-center justify-center bg-fixed bg-cover bg-center"
+      style={{ backgroundImage: "url('/bg.jpg')" }}
+    >
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+
+      {/* Card */}
+      <motion.div
+        className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-xl p-10 rounded-2xl shadow-2xl border border-white/20"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <h2 className="text-3xl font-bold text-white text-center mb-6 tracking-wide">
           Login
         </h2>
 
-        <Form method="post" className="space-y-4">
+        <Form method="post" className="space-y-5">
+
           {/* EMAIL */}
           <div>
-            <label className="block text-gray-600 mb-1">Email Address</label>
+            <label className="text-white/80 block mb-1">Email Address</label>
             <input
               type="email"
               name="email"
-              className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
               placeholder="you@example.com"
+              className="w-full px-4 py-2 rounded-lg bg-white/20 text-white focus:ring-2 focus:ring-blue-300 outline-none"
               defaultValue={"mulenga@gmail.com"}
               required
             />
@@ -44,36 +57,39 @@ const Login = () => {
 
           {/* PASSWORD */}
           <div>
-            <label className="block text-gray-600 mb-1">Password</label>
+            <label className="text-white/80 block mb-1">Password</label>
             <input
               type="password"
               name="password"
+              className="w-full px-4 py-2 rounded-lg bg-white/20 text-white focus:ring-2 focus:ring-blue-300 outline-none"
               defaultValue={"pass1234"}
-              className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
               required
             />
           </div>
 
-          {/* SUBMIT */}
+          {/* SUBMIT BUTTON */}
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-semibold shadow-xl transition-all"
           >
             {isSubmitting ? "Submitting..." : "Login"}
           </button>
         </Form>
 
-        {/* LINK TO REGISTER */}
-        <p className="text-center text-gray-600 mt-4">
-          <p>Do not have an account?</p>
-          <Link to="/register" className="text-blue-600 font-semibold ml-1">
+        {/* LINKS */}
+        <p className="text-center text-white/80 mt-5 text-sm">
+          Don't have an account?
+          <Link to="/register" className="text-blue-300 font-semibold ml-1 hover:underline">
             Register
           </Link>
-          <Link to="/" className="text-blue-600 font-semibold ml-1">
-            | Return to Home
+        </p>
+
+        <p className="text-center text-white/80 mt-2 text-sm">
+          <Link to="/" className="text-blue-300 font-semibold hover:underline">
+            Return to Home
           </Link>
         </p>
-      </div>
+      </motion.div>
     </div>
   );
 };
