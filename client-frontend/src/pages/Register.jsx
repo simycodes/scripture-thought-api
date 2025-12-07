@@ -32,8 +32,10 @@ const Register = () => {
         <Form method="post" className="space-y-4">
           {/* NAME */}
           <div>
-            <label className="block text-gray-600 mb-1">Full Name</label>
+            {/* <label className="block text-gray-600 mb-1">Full Name</label> */}
+            <label htmlFor="first-name" className="block text-gray-600 mb-1">First Name</label>
             <input
+              id="first-name"
               type="text"
               name="name"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
@@ -43,8 +45,10 @@ const Register = () => {
           </div>
 
           <div>
-            <label className="block text-gray-600 mb-1">Full Name</label>
+            {/* <label className="block text-gray-600 mb-1">Full Name</label> */}
+            <label htmlFor="last-name" className="block text-gray-600 mb-1">Last Name</label>
             <input
+              id="last-name"
               type="text"
               name="lastName"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
@@ -55,8 +59,9 @@ const Register = () => {
 
           {/* EMAIL */}
           <div>
-            <label className="block text-gray-600 mb-1">Email Address</label>
+            <label htmlFor="email" className="block text-gray-600 mb-1">Email Address</label>
             <input
+              id="email"
               type="email"
               name="email"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
@@ -67,8 +72,9 @@ const Register = () => {
 
           {/* PASSWORD */}
           <div>
-            <label className="block text-gray-600 mb-1">Password</label>
+            <label htmlFor="password" className="block text-gray-600 mb-1">Password</label>
             <input
+              id="password"
               type="password"
               name="password"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"

@@ -31,8 +31,9 @@ const Login = () => {
         <Form method="post" className="space-y-4">
           {/* EMAIL */}
           <div>
-            <label className="block text-gray-600 mb-1">Email Address</label>
+            <label htmlFor="email" className="block text-gray-600 mb-1">Email Address</label>
             <input
+              id="email"
               type="email"
               name="email"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"
@@ -43,8 +44,9 @@ const Login = () => {
 
           {/* PASSWORD */}
           <div>
-            <label className="block text-gray-600 mb-1">Password</label>
+            <label htmlFor="password" className="block text-gray-600 mb-1">Password</label>
             <input
+              id="password"
               type="password"
               name="password"
               className="w-full border px-3 py-2 rounded-lg focus:outline-none focus:ring"

@@ -13,13 +13,14 @@ const Profile = () => {
         {/* USER PROFILE DETAILS */}
         <Form method="post" className="profile-form">
           <div className="form-group">
-            <label>Name</label>
-            <input type="text" name="name" defaultValue={name} disabled />
+            <label htmlFor="name">Name</label>
+            <input id="name" type="text" name="name" defaultValue={name} disabled />
           </div>
 
           <div className="form-group">
-            <label>Last Name</label>
+            <label htmlFor="last-name">Last Name</label>
             <input
+              id="last-name"
               type="text"
               name="lastName"
               defaultValue={lastName}
@@ -28,8 +29,8 @@ const Profile = () => {
           </div>
 
           <div className="form-group">
-            <label>Email</label>
-            <input type="email" name="email" defaultValue={email} disabled />
+            <label htmlFor="email">Email</label>
+            <input id="email" type="email" name="email" defaultValue={email} disabled />
           </div>
 
           <div className="submit-row">

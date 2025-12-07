@@ -32,8 +32,9 @@ export default function AddScriptureThought() {
         {/* SCRIPTURE THOUGHT DETAILS TO BE ENTERED */}
         <Form method="post" className="profile-form">
           <div className="form-group">
-            <label>Description/Title</label>
+            <label htmlFor="description">Description/Title</label>
             <input
+              id="description"
               type="text"
               name="description"
               placeholder="Example: God loves us all!"
@@ -42,8 +43,9 @@ export default function AddScriptureThought() {
           </div>
 
           <div className="form-group">
-            <label className="label-text">Scripture Verse</label>
+            <label htmlFor="verse" className="label-text">Scripture Verse</label>
             <input
+              id="verse"
               type="text"
               name="scriptureVerse"
               placeholder="Example: John 3:16"
@@ -51,8 +53,9 @@ export default function AddScriptureThought() {
           </div>
 
           <div className="form-group">
-            <label>Your Scripture Thought</label>
+            <label htmlFor="your-scripture">Your Scripture Thought</label>
             <textarea
+              id="your-scripture"
               type="text"
               name="thought"
               placeholder="Your Scripture Thought goes here..."
