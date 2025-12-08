@@ -1,47 +1,48 @@
-import { useOutletContext, Form, Link } from "react-router-dom";
-import "./profile.css";
+import { Form, useNavigation, redirect, useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
+import { updateProfile } from "./index";
 
-const Profile = () => {
-  const { user } = useOutletContext();
-  const { name, lastName, email } = user;
-
-  return (
-    <div className="profile-container fade-in">
-      <div className="profile-card slide-up">
-        <h2 className="profile-title">My Profile Information</h2>
-
-        {/* USER PROFILE DETAILS */}
-        <Form method="post" className="profile-form">
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input id="name" type="text" name="name" defaultValue={name} disabled />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="last-name">Last Name</label>
-            <input
-              id="last-name"
-              type="text"
-              name="lastName"
-              defaultValue={lastName}
-              disabled
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input id="email" type="email" name="email" defaultValue={email} disabled />
-          </div>
-
-          <div className="submit-row">
-            <Link to="../edit-profile" type="submit" className="btn-save">
-              Update Profile
-            </Link>
-          </div>
-        </Form>
-      </div>
-    </div>
-  );
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  try {
+    await updateProfile(data);
+    toast.success("Profile updated");
+    return redirect("/dashboard/profile");
+  } catch (err) {
+    toast.error(err?.response?.data?.msg || "Update failed");
+    return null;
+  }
 };
 
-export default Profile;
+export default function Profile() {
+  const { user } = useOutletContext();
+  const nav = useNavigation();
+  const submitting = nav.state === "submitting";
+
+  return (
+    <div className="max-w-2xl mx-auto">
+      <h2 className="text-2xl font-semibold mb-4">Profile</h2>
+      <Form method="post" className="bg-white p-6 rounded shadow space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">First name</label>
+          <input name="name" defaultValue={user.name} className="mt-1 w-full border rounded px-3 py-2" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Last name</label>
+          <input name="lastName" defaultValue={user.lastName} className="mt-1 w-full border rounded px-3 py-2" />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input name="email" defaultValue={user.email} className="mt-1 w-full border rounded px-3 py-2" />
+        </div>
+
+        <div className="flex justify-end">
+          <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded" disabled={submitting}>
+            {submitting ? "Updating..." : "Update Profile"}
+          </button>
+        </div>
+      </Form>
+    </div>
+  );
+}

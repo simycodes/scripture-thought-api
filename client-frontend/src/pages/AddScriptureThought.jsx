@@ -1,76 +1,50 @@
-// import { useState } from "react";
-import { Form, redirect, useNavigation } from "react-router-dom";
-import { toast } from "react-toastify"; 
-import customFetch from "../utils/customFetch";
-import "./addScriptureThought.css";
+import { Form, useNavigation, redirect } from "react-router-dom";
+import { toast } from "react-toastify";
+import { createThought } from "./index";
 
-// ACTION FUNCTION TO HANDLE CREATE SCRIPTURE DATA SUBMISSION TO THE API
 export const action = async ({ request }) => {
   const formData = await request.formData();
-  const data = Object.fromEntries(formData); 
+  const data = Object.fromEntries(formData);
 
   try {
-    await customFetch.post("/scripture-thoughts/create-thought", data);
-    toast.success("Your Scripture Thought has been created successful");
+    await createThought(data);
+    toast.success("Scripture thought created");
     return redirect("/dashboard/my-scripture-thoughts");
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return error;
+  } catch (err) {
+    toast.error(err?.response?.data?.msg || "Failed to create");
+    return null;
   }
-  
 };
 
 export default function AddScriptureThought() {
   const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
+  const submitting = navigation.state === "submitting";
 
   return (
-    <div className="profile-container fade-in">
-      <div className="profile-card slide-up">
-        <h2 className="profile-title">Create a Scripture Thought</h2>
+    <div className="max-w-3xl mx-auto">
+      <h2 className="text-2xl font-semibold mb-4">Create a Scripture Thought</h2>
+      <Form method="post" className="space-y-4 bg-white rounded-lg p-6 shadow">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Title</label>
+          <input name="description" required className="mt-1 w-full border rounded px-3 py-2" />
+        </div>
 
-        {/* SCRIPTURE THOUGHT DETAILS TO BE ENTERED */}
-        <Form method="post" className="profile-form">
-          <div className="form-group">
-            <label htmlFor="description">Description/Title</label>
-            <input
-              id="description"
-              type="text"
-              name="description"
-              placeholder="Example: God loves us all!"
-              required
-            />
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Scripture Verse</label>
+          <input name="scriptureVerse" className="mt-1 w-full border rounded px-3 py-2" />
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="verse" className="label-text">Scripture Verse</label>
-            <input
-              id="verse"
-              type="text"
-              name="scriptureVerse"
-              placeholder="Example: John 3:16"
-            />
-          </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Thought</label>
+          <textarea name="thought" rows="5" required className="mt-1 w-full border rounded px-3 py-2"></textarea>
+        </div>
 
-          <div className="form-group">
-            <label htmlFor="your-scripture">Your Scripture Thought</label>
-            <textarea
-              id="your-scripture"
-              type="text"
-              name="thought"
-              placeholder="Your Scripture Thought goes here..."
-              rows="5"
-              required
-            />
-          </div>
-
-          <div className="submit-row">
-            <button type="submit" className="btn-save" disabled={isSubmitting}>
-              {isSubmitting ? "submitting..." : "Submit Scripture Thought"}
-            </button>
-          </div>
-        </Form>
-      </div>
+        <div className="flex justify-end">
+          <button type="submit" disabled={submitting} className="bg-blue-600 text-white px-4 py-2 rounded">
+            {submitting ? "Submitting..." : "Submit Thought"}
+          </button>
+        </div>
+      </Form>
     </div>
   );
 }

@@ -95,22 +95,6 @@ const Landing = () => {
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          className="absolute bottom-6 left-1/2 -translate-x-1/2"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-        >
-          <motion.div
-            className="w-6 h-10 border-2 border-white rounded-full flex justify-center"
-            animate={{ y: [0, 6, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5 }}
-          >
-            <div className="w-1 h-2 bg-white rounded-full mt-2" />
-          </motion.div>
-        </motion.div>
-
       </div>
     </div>
   );

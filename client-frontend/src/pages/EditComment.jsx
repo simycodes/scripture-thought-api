@@ -1,98 +1,47 @@
-import {
-  Form,
-  useLoaderData,
-  redirect,
-  useNavigation,
-  useParams,
-  Link
-} from "react-router-dom";
+import { Form, useLoaderData, useNavigation, redirect } from "react-router-dom";
+import { getSingleComment, updateComment } from "./index";
 import { toast } from "react-toastify";
-import customFetch from "../utils/customFetch";
-import "./editComment.css";
 
-// LOADER FUNCTION TO FETCH THE COMMENT TO BE UPDATED
 export const loader = async ({ params }) => {
-  console.log("edit comment loader reached!")
-  console.log(params.id);
-  console.log(params.thoughtId);
   try {
-    const { data } = await customFetch.get(`/comments/get-single-comment/${params.id}`);
-    console.log(data);
+    const { data } = await getSingleComment(params.id);
     return data;
-  } catch (error) {
-    toast.error(error?.response.data.msg);
-    return redirect(`/dashboard/comments/${params.thoughtId}`);
+  } catch (err) {
+    toast.error("Failed to load comment");
+    return redirect("/dashboard");
   }
 };
 
-// ACTION FUNCTION TO HANDLE UPDATE COMMENT SUBMISSION TO THE API
 export const action = async ({ request, params }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
-
   try {
-    await customFetch.patch(`/comments/${params.id}`, data);
-    toast.success("Your comment has been updated successfully");
+    await updateComment(params.id, data);
+    toast.success("Updated");
     return redirect(`/dashboard/comments/${params.thoughtId}`);
-  } catch (error) {
-    toast.error(error?.response?.data?.msg);
-    return redirect(`/dashboard/comments/${params.thoughtId}`);
+  } catch (err) {
+    toast.error("Update failed");
+    return null;
   }
 };
 
-const EditComment = () => {
+export default function EditComment() {
   const { comment } = useLoaderData();
-  const { thoughtId } = useParams();
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === "submitting";
-  const date = new Date(comment.createdAt).toLocaleString();
+  const nav = useNavigation();
+  const submitting = nav.state === "submitting";
 
   return (
-    <div className="comments-container fade-in">
-      <div className="profile-card slide-up">
-        <h2>Update Your Comment</h2>
-
-        {/* COMMENT DETAILS */}
-        <div className="profile-form">
-          <Form method="post" className="profile-form">
-            <div className="form-group">
-              <label>
-                <span>
-                  {comment.name} {comment.lastName} - commented on {date}
-                </span>
-              </label>
-
-              <textarea
-                type="text"
-                name="comment"
-                defaultValue={comment.comment}
-                rows="4"
-              />
-
-              <div className="comment-btns-container">
-                <Link
-                  to={`/dashboard/comments/${thoughtId}`}
-                  className="btn-save"
-                >
-                  {isSubmitting ? "submitting..." : "Cancel"}
-                </Link>
-
-                <div className="submit-row">
-                  <button
-                    type="submit"
-                    className="btn-save"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "submitting..." : "Update Comment"}
-                  </button>
-                </div>
-              </div>
-            </div>
-          </Form>
-        </div>
+    <div className="max-w-3xl mx-auto">
+      <div className="bg-white p-6 rounded shadow">
+        <h3 className="text-lg font-semibold mb-3">Edit Comment</h3>
+        <Form method="post">
+          <textarea name="comment" defaultValue={comment.comment} rows="4" className="w-full border rounded px-3 py-2" />
+          <div className="mt-3 flex justify-end gap-2">
+            <button className="px-4 py-2 rounded border" type="button" onClick={() => window.history.back()}>Cancel</button>
+            <button className="px-4 py-2 rounded bg-blue-600 text-white" disabled={submitting}>{submitting ? "Saving..." : "Save"}</button>
+          </div>
+        </Form>
       </div>
     </div>
   );
-};
-
-export default EditComment;
+}

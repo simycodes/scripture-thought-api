@@ -1,26 +1,15 @@
 import { Link, useRouteError } from "react-router-dom";
 
-const Error = () => {
+export default function ErrorPage() {
   const error = useRouteError();
-  console.log(error);
-
-  if(error.status === 404) {
-    return (
-        <div>
-          {/* ERROR MESSAGE TO DISPLAY TO USERS WHEN A 404 ERROR OCCURS */}
-          <h3>Ohh! page not found</h3>
-          <p>We can not seem to find the page you are looking for</p>
-          <Link to="/dashboard">back home</Link>
-        </div>
-    );
-  }
-
+  console.error(error);
   return (
-    <div>
-      {/* ERROR MESSAGE TO DISPLAY TO USERS WHEN OTHER ERROR OCCURS */}
-      <h3>Something Went Wrong...</h3>
+    <div className="min-h-screen flex items-center justify-center p-6">
+      <div className="max-w-lg text-center">
+        <h2 className="text-2xl font-bold mb-2">Something went wrong</h2>
+        <p className="text-gray-600 mb-4">{error?.statusText || error?.message || "Unexpected error."}</p>
+        <Link to="/dashboard" className="inline-block bg-blue-600 text-white px-4 py-2 rounded">Back to Dashboard</Link>
+      </div>
     </div>
   );
 }
-
-export default Error

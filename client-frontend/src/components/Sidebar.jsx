@@ -1,40 +1,31 @@
-import { Link } from "react-router-dom";
 import { NavLink } from "react-router-dom";
-import { IoIosAddCircle } from "react-icons/io";
-import { IoIosPerson } from "react-icons/io";
-import { GiNothingToSay } from "react-icons/gi";
-import { TfiThought } from "react-icons/tfi";
-import logo from "../assets/images/logo.jpg";
+import { FiHome, FiPlusSquare, FiFileText, FiUsers } from "react-icons/fi";
 
-const Sidebar = () => {
+const navItems = [
+  { to: "/dashboard", label: "Add Thought", icon: <FiPlusSquare /> },
+  { to: "/dashboard/my-scripture-thoughts", label: "My Thoughts", icon: <FiFileText /> },
+  { to: "/dashboard/all-scripture-thoughts", label: "All Thoughts", icon: <FiUsers /> },
+  { to: "/dashboard/profile", label: "Profile", icon: <FiHome /> },
+];
+
+export default function Sidebar() {
   return (
-    <div className="sidebar">
-      <Link to={"/dashboard/my-scripture-thoughts"}>
-        <img src={logo} alt="scripture-thought-logo" className="logo" />
-      </Link>
-
-      <div className="nav-links">
-        <NavLink to={"."} className="" end>
-          <IoIosAddCircle className="icon" />
-          Add Scripture Thought
-        </NavLink>
-
-        <NavLink to={"my-scripture-thoughts"} className="" end>
-          <TfiThought className="icon" />
-          My Scripture Thoughts
-        </NavLink>
-
-        <NavLink to={"all-scripture-thoughts"} className="" end>
-          <GiNothingToSay className="icon" />
-          All Scripture Thoughts
-        </NavLink>
-
-        <NavLink to={"profile"} className="" end>
-          <IoIosPerson className="icon" />
-          My Profile
-        </NavLink>
+    <aside className="w-72 hidden md:block bg-white border-r min-h-screen">
+      <div className="p-6">
+        <h3 className="font-bold text-xl mb-4">ScriptureThoughts</h3>
+        <nav className="flex flex-col gap-2">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) => `flex items-center gap-3 px-3 py-2 rounded-lg ${isActive ? "bg-blue-50 text-blue-600" : "text-gray-700 hover:bg-gray-50"}`}
+            >
+              <span className="text-lg">{item.icon}</span>
+              <span>{item.label}</span>
+            </NavLink>
+          ))}
+        </nav>
       </div>
-    </div>
+    </aside>
   );
-};
-export default Sidebar;
+}
