@@ -10,6 +10,7 @@ import {
 
 const router = express.Router();
 
+// SCRIPTURE THOUGHT CRUD ROUTES 
 router.post('/create-thought', validateScriptureThoughtInput, createThought);
 router.get("/get-all-thoughts-user", getAllThoughtsByUser);
 router.get("/get-thought/:id", validateScriptureThoughtIdParam, getOneThoughtById);

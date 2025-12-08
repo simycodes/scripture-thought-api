@@ -17,6 +17,7 @@ import {
 
 const router = express.Router();
 
+// COMMENT CRUD ROUTES 
 router.post(
   "/",
   validateScriptureThoughtIdInCommentCreation,

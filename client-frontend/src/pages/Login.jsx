@@ -46,6 +46,7 @@ const Login = () => {
           <div>
             <label className="text-white/80 block mb-1">Email Address</label>
             <input
+              id="email"
               type="email"
               name="email"
               placeholder="you@example.com"
@@ -59,6 +60,7 @@ const Login = () => {
           <div>
             <label className="text-white/80 block mb-1">Password</label>
             <input
+              id="password"
               type="password"
               name="password"
               className="w-full px-4 py-2 rounded-lg bg-white/20 text-white focus:ring-2 focus:ring-blue-300 outline-none"

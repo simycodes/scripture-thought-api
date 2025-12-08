@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import ScriptureThoughtModel from "../models/ScriptureThoughtModel.js";
 
+
+// FUNCTION TO CREATE A SCRIPTURE THOUGHTS
 export const createThought = async (req, res) => {
     try {
         const { description, scriptureVerse, thought } = req.body;
@@ -25,6 +27,7 @@ export const createThought = async (req, res) => {
     }
 };
 
+// FUNCTION TO GET ALL SCRIPTURE THOUGHTS CREATED BY THE SAME USER
 export const getAllThoughtsByUser = async (req, res) => {
     try {
 
@@ -43,6 +46,7 @@ export const getAllThoughtsByUser = async (req, res) => {
     }
 };
 
+// FUNCTION TO GET A SINGLE SCRIPTURE THOUGHTS CREATED BY THE SAME USER
 export const getOneThoughtById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -66,6 +70,7 @@ export const getOneThoughtById = async (req, res) => {
     }
 };
 
+// FUNCTION TO GET ALL SCRIPTURE THOUGHTS CREATED BY ALL USERS
 export const getAllThoughts = async (req, res) => {
     try {
         const thoughts = await ScriptureThoughtModel.find().sort({ createdAt: -1 })
@@ -78,6 +83,7 @@ export const getAllThoughts = async (req, res) => {
     }
 };
 
+// FUNCTION TO UPDATE A SCRIPTURE THOUGHT
 export const updateThoughtById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -104,6 +110,7 @@ export const updateThoughtById = async (req, res) => {
     }
 };
 
+// FUNCTION TO DELETE A SCRIPTURE THOUGHT
 export const deleteThoughtById = async (req, res) => {
 
     try {
@@ -127,6 +134,7 @@ export const deleteThoughtById = async (req, res) => {
 };
 
 
+// FUNCTION THAT HANDLES LIKING A SCRIPTURE THOUGHT
 export const likeThought = async (req, res) => {
     
     const { id } = req.params;
@@ -164,7 +172,7 @@ export const likeThought = async (req, res) => {
     });
 };
 
-
+// FUNCTION THAT HANDLES DISLIKING A SCRIPTURE THOUGHT
 export const unlikeThought = async (req, res) => {
     const { id } = req.params;
     const user = req.user.userId;

@@ -7,6 +7,7 @@ export const getAllUsers = async (req, res) => {
   res.status(StatusCodes.OK).json({ users });
 };
 
+// FUNCTION TO GET CURRENT SINGLE USER
 export const getCurrentUser = async (req, res) => {
   console.log("reached current user controller!")
   const user = await User.findOne({ _id: req.user.userId });
@@ -14,6 +15,7 @@ export const getCurrentUser = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: userWithoutPassword });
 };
 
+// FUNCTION TO UPDATE A LOGGED IN USER
 export const updateUser = async (req, res) => {
   // remove password so it can't be updated on this route
   const obj = { ...req.body };
