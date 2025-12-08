@@ -50,15 +50,14 @@ const Profile = () => {
             <input type="email" name="email" defaultValue={email} required />
           </div>
 
+          {/* CANCEL AND SUBMIT BUTTONS */}
           <div className="comment-btns-container">
             <div className="submit-row">
               <button
-                type="submit"
                 className="cancel-btn"
-                disabled={isSubmitting}
               >
                 <Link to={"/dashboard/profile"}>
-                  {isSubmitting ? "submitting..." : "Cancel"}
+                  Cancel
                 </Link>
               </button>
             </div>

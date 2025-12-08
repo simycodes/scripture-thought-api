@@ -3,3 +3,29 @@
   width: 45%;
   max-width: 45%;
 }
+
+.thought-title {
+  font-size: 1.7rem;
+  text-align: center;
+  font-weight: 400;
+}
+
+.thought-by-and-date {
+  font-size: .85rem;
+  text-align: center;
+  font-weight: 400;
+}
+
+.verse-and-scripture-thought {
+  padding: 5px;
+  border-top: 1px solid #9333ea;
+}
+
+.verse {
+  font-size: .92rem;
+  text-decoration: underline;
+}
+
+.likes {
+  color: black;
+}

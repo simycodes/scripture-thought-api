@@ -1,4 +1,4 @@
-import { Form, useLoaderData, redirect, useNavigation } from "react-router-dom";
+import { Form, useLoaderData, redirect, useNavigation, Link} from "react-router-dom";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 import "./editScriptureThought.css";
@@ -73,10 +73,22 @@ export default function EditScriptureThought() {
             />
           </div>
 
-          <div className="submit-row">
-            <button type="submit" className="btn-save" disabled={isSubmitting}>
-              {isSubmitting ? "submitting..." : "Update Scripture Thought"}
-            </button>
+          {/* CANCEL AND SUBMIT BUTTONS */}
+          <div className="update-cancel-btns-container">
+            <div className="submit-row">
+              <button className="cancel-btn">
+                <Link to={"/dashboard/my-scripture-thoughts"}>Cancel</Link>
+              </button>
+            </div>
+            <div className="submit-row">
+              <button
+                type="submit"
+                className="btn-save"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "submitting..." : "Update Scripture Thought"}
+              </button>
+            </div>
           </div>
         </Form>
       </div>

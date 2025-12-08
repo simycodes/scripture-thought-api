@@ -87,6 +87,13 @@
   }
 }
 
+.update-cancel-btns-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+}
+
 /* Submit button */
 .submit-row {
   display: flex;

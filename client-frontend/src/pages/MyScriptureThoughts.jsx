@@ -1,9 +1,14 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import MyScriptureThought from "../components/MyScriptureThought"
+import MyScriptureThought from "../components/MyScriptureThought";
 import "./myScriptureThoughts.css";
-import { getUserThoughts, likeThought, unlikeThought, deleteThought } from "../api";
+import {
+  getUserThoughts,
+  likeThought,
+  unlikeThought,
+  deleteThought,
+} from "../api";
 
 export default function MyScriptureThoughts() {
   const [thoughts, setThoughts] = useState([]);
@@ -14,8 +19,14 @@ export default function MyScriptureThoughts() {
   const fetchThoughts = async () => {
     setIsLoading(true);
 
-    const { data } = await getUserThoughts();
-    setThoughts(data);
+    // GET SCRIPTURE THOUGHTS
+    try {
+      const { data } = await getUserThoughts();
+      setThoughts(data);
+    } catch (error) {
+      toast.error(error?.response?.data?.msg);
+      return;
+    }
     setIsLoading(false);
   };
 
@@ -23,6 +34,7 @@ export default function MyScriptureThoughts() {
     fetchThoughts();
   }, []);
 
+  // FUNCTION TO HANDLE LIKE AND DISLIKE OF A SCRIPTURE THOUGHT
   const handleLike = async (thought) => {
     if (thought.likes.includes(userId)) {
       await unlikeThought(thought._id);
@@ -32,6 +44,7 @@ export default function MyScriptureThoughts() {
     fetchThoughts();
   };
 
+  // FUNCTION TO HANDLE DELETION OF A SCRIPTURE THOUGHT
   const handleDelete = async (thoughtId) => {
     const confirmDelete = window.confirm(
       "Are you sure you want to delete this thought?"
@@ -40,32 +53,28 @@ export default function MyScriptureThoughts() {
 
     try {
       await deleteThought(thoughtId);
-      toast.success("Thought deleted successfully!");
+      toast.success("Scripture Thought deleted successfully!");
       fetchThoughts();
     } catch (err) {
-      console.error(
-        "Error deleting thought:",
-        err.response?.data || err.message
-      );
       toast.error("Failed to Delete Scripture Thought, Try Again Later");
     }
   };
 
-    // DISPLAY LOADING NOTIFICATION WHEN THE SCRIPTURE THOUGHTS ARE BEING FETCHED FROM API
-    if (isLoading) {
-      return (
-        <div className="flex justify-center items-center h-40">
-          <div className="w-10 h-10 border-[10px] border-gray-300 rounded-full border-t-blue-600 animate-spin"></div>
-        </div>
-      );
-    }
+  // DISPLAY LOADING NOTIFICATION WHEN THE SCRIPTURE THOUGHTS ARE BEING FETCHED FROM API
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <div className="w-10 h-10 border-[10px] border-gray-300 rounded-full border-t-blue-600 animate-spin"></div>
+      </div>
+    );
+  }
 
   // IF ALL USERS HAVE NOT CREATED ANY SCRIPTURE THOUGHTS DISPLAY THE NO SCRIPTURE THOUGHTS AVAILABLE
   if (thoughts.length === 0) {
     return (
       <div className="thoughts-holder">
         <h1 className="text-2xl font-bold mb-6 text-gray-800">
-          No scripture thoughts to display, start creating now!
+          You have no scripture thoughts to display, start creating now!
         </h1>
       </div>
     );
@@ -84,7 +93,7 @@ export default function MyScriptureThoughts() {
             <MyScriptureThought
               key={thought._id}
               thought={thought}
-              user={user}
+              user={user} // user IS BEING PASSED TO DISPLAY USER NAMES ON HIS OWN THOUGHTS AND TO CHECK/HANDLE USER SCRIPTURE THOUGHT LIKE AND DISLIKE FUNCTIONALITY 
               handleLike={handleLike}
               handleDelete={handleDelete}
             />

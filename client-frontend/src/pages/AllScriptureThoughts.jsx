@@ -4,11 +4,7 @@ import { toast } from "react-toastify";
 import MyScriptureThoughtInAllThoughts from "../components/MyScriptureThoughtInAllThoughts";
 import "./myScriptureThoughts.css";
 import customFetch from "../utils/customFetch";
-import {
-  getThoughts,
-  likeThought,
-  unlikeThought,
-} from "../api";
+import { getThoughts, likeThought, unlikeThought } from "../api";
 
 export default function AllScriptureThoughts() {
   const [thoughts, setThoughts] = useState([]);
@@ -16,7 +12,9 @@ export default function AllScriptureThoughts() {
   const userId = user._id;
   const [isLoading, setIsLoading] = useState(true);
 
-
+  // THIS FUNCTION FIRST FETCHES ALL SCRIPTURE THOUGHTS OF ALL USERS
+  // AND THEN FETCHES THE USER FIRST AND LAST NAME CORRESPONDING TO THE
+  // SCRIPTURE THOUGHTS, COMBINES THIS DATA FOR DISPLAY ON EACH SCRIPTURE THOUGHT DISPLAYED
   const fetchThoughts = async () => {
     setIsLoading(true);
 
@@ -33,7 +31,9 @@ export default function AllScriptureThoughts() {
 
     // GET THE USERS (name and lastName) FOR EACH SCRIPTURE THOUGHT
     try {
-      const response = await customFetch.get("/users/get-users-for-scripture-thoughts");
+      const response = await customFetch.get(
+        "/users/get-users-for-scripture-thoughts"
+      );
       users = response.data.users;
     } catch (error) {
       toast.error(error?.response.data.msg);
@@ -105,7 +105,7 @@ export default function AllScriptureThoughts() {
             <MyScriptureThoughtInAllThoughts
               key={thought._id}
               thought={thought}
-              user={user}
+              user={user} // user IS ONLY BEING PASSED TO CHECK/HANDLE USER SCRIPTURE THOUGHT LIKE AND DISLIKE FUNCTIONALITY, thoughts HERE DIRECTLY HOLDS NAMES FOR CORRESPONDING TO EACH SCRIPTURE THOUGHT
               handleLike={handleLike}
             />
           );

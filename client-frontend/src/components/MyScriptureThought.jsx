@@ -14,24 +14,29 @@ const MyScriptureThought = ({thought, user, handleLike, handleDelete}) => {
       key={thought._id}
       className="thought-wrapper border rounded-2xl p-5 shadow-sm bg-white hover:shadow-md transition"
     >
-      <h3 className="font-semibold">
+      <h1 className="thought-title">
+        <i>{thought.description}</i>
+      </h1>
+
+      <p className="thought-by-and-date">
         <i>
-          {thought.description}...
-          <i className="text-blue-600 text-sm">thought by you</i>..
-          <i className="text-sm">
+          <i className="text-blue-600">thought by </i>
+          <i>
             {user.name} {user.lastName}{" "}
           </i>
-          (<i className="text-blue-600 text-sm">{timeAgo}</i>)
+          (<i className="text-blue-600">{timeAgo}</i>)
         </i>
-      </h3>
-
-      <p className="mt-2 text-sm text-gray-600 font-medium">
-        <strong>{thought.scriptureVerse}</strong>
       </p>
 
-      <p className="mt-3 text-gray-700 leading-relaxed">{thought.thought}</p>
+      <div className="verse-and-scripture-thought">
+        <p className="mt-2 verse">
+          <strong>{thought.scriptureVerse}</strong>
+        </p>
 
-      <p className="mt-3 text-gray-600 text-sm">Likes: {thought.likeCount}</p>
+        <p className="mt-3 leading-relaxed">{thought.thought}</p>
+      </div>
+
+      <p className="mt-3 text-sm">Likes: {thought.likeCount}</p>
 
       <div className="mt-4 flex items-center gap-3 flex-wrap">
         <button
